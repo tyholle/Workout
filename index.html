@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Block 1 · Weeks 1–6 · MMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0f2f5;--card:#ffffff;--dim:#e8eaed;--border:#d1d5db;--acc:#1e40af;--acc2:#2563eb;--red:#dc2626;--green:#15803d;--blue:#1d4ed8;--teal:#0f766e;--text:#111827;--muted:#6b7280;--gold:#92400e;}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;color-scheme:light}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:11px;-webkit-font-smoothing:antialiased}
+.nav{position:sticky;top:0;z-index:200;background:#ffffff;backdrop-filter:blur(8px);border-bottom:1px solid var(--border);display:flex;align-items:center;overflow-x:auto;padding:0 14px;gap:0;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:var(--acc);padding:10px 12px 10px 0;border-right:1px solid var(--border);margin-right:4px;white-space:nowrap}
+.nb{padding:10px 9px;font-size:9px;letter-spacing:.6px;text-transform:uppercase;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;border:none;background:none;font-family:'Inter',sans-serif;border-bottom:2px solid transparent}
+.nb:hover{color:var(--text)}.nb.active{color:var(--acc);border-bottom-color:var(--acc)}
+.page{display:none;max-width:1040px;margin:0 auto;padding:20px 14px 70px}.page.active{display:block}
+.hero{padding:28px 20px 18px;max-width:1040px;margin:0 auto;background:#ffffff}
+.eye{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--acc);text-transform:uppercase;margin-bottom:6px}
+h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(24px,5vw,44px);line-height:.93;letter-spacing:-1px;margin-bottom:8px}
+h1 span{color:#cbd5e1}
+.sub{color:var(--muted);max-width:500px;line-height:1.7;font-size:11px}
+.plink{display:inline-block;margin-top:8px;background:var(--acc);color:#fff;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;padding:6px 11px;border-radius:4px}
+.sbar{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#ffffff}
+.sc{padding:9px 4px;border-right:1px solid var(--border);text-align:center;background:var(--card)}.sc:last-child{border-right:none}
+.sv{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--acc);line-height:1}
+.sl{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.stag{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;background:#1e293b;margin-bottom:10px;padding:6px 10px;border-radius:4px;display:inline-block}
+.note{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:4px;padding:8px 11px;margin-bottom:8px;font-size:11px;color:var(--muted);line-height:1.7}
+.note.gold{border-left-color:var(--gold)}.note.red{border-left-color:var(--red)}.note.green{border-left-color:var(--green)}.note.teal{border-left-color:var(--teal)}.note strong{color:var(--text)}
+.wk-tabs{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:10px}
+.wt{padding:5px 10px;font-size:9px;font-family:'JetBrains Mono',monospace;border:1px solid var(--border);border-radius:4px;color:var(--muted);cursor:pointer;background:var(--card);white-space:nowrap}
+.wt:hover{border-color:var(--acc2);color:var(--acc)}.wt.active{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+.wc{display:none}.wc.active{display:block}
+.ptabs{display:flex;gap:3px;margin-bottom:10px;flex-wrap:wrap}
+.pt{padding:5px 10px;font-size:9px;font-family:'JetBrains Mono',monospace;border:1px solid var(--border);border-radius:4px;color:var(--muted);cursor:pointer;background:var(--card)}
+.pt:hover{border-color:var(--acc);color:var(--acc)}.pt.active{background:var(--acc);border-color:var(--acc);color:#fff}
+.pc{display:none}.pc.active{display:block}
+.wrow{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:10px}
+.dp{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:7px 3px;text-align:center}
+.dp.mm{border-top:3px solid var(--acc)}.dp.gf{border-top:3px solid var(--green)}.dp.rs{opacity:.38}
+.dl{font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:1px}
+.dn{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;line-height:1.1}.df{font-size:8px;color:var(--muted);margin-top:1px}
+.wcard{margin-bottom:12px}
+.wh{display:flex;align-items:center;gap:5px;padding:7px 10px;background:var(--dim);border:1px solid var(--border);border-bottom:none;border-radius:5px 5px 0 0;flex-wrap:wrap}
+.wb{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;letter-spacing:1px;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.wb.m{background:var(--acc);color:#fff}.wb.g{background:var(--green);color:#fff}.wb.p{background:#7c3aed;color:#fff}.wb.r{background:var(--red);color:#fff}
+.wt2{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;flex:1}
+table{width:100%;border-collapse:collapse;border:1px solid var(--border);border-radius:0 0 5px 5px;overflow:hidden;background:var(--card)}
+thead tr{background:var(--dim)}
+th{text-align:left;padding:5px 8px;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:600;font-family:'JetBrains Mono',monospace;border-bottom:1px solid var(--border)}
+td{padding:6px 8px;border-bottom:1px solid var(--border);font-size:11px;vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:#fafaf8}
+.en{font-weight:600;font-size:11px}.tip{font-size:10px;color:var(--muted);margin-top:1px;line-height:1.5}
+.sn{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--acc)}
+.rn{font-family:'Syne',sans-serif;font-size:12px;font-weight:700}
+.rpe{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 4px;border-radius:3px;font-weight:500}
+.r6{background:#dcfce7;color:#166534;border:1px solid #86efac}.r7{background:#fef9c3;color:#854d0e;border:1px solid #fde047}
+.r8{background:#ffedd5;color:#9a3412;border:1px solid #fdba74}.r9{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.tp{display:inline-block;font-size:8px;font-family:'JetBrains Mono',monospace;padding:2px 4px;border-radius:3px;background:var(--dim);border:1px solid var(--border);color:var(--muted)}
+.ct{background:#fef2f2;border-color:#fca5a5;color:#dc2626}.cx{background:#f0fdfa;border-color:#5eead4;color:#0f766e}
+.gft{background:#f0fdf4;border-color:#86efac;color:#15803d}.kk{background:#fef3c7;border-color:#fcd34d;color:#92400e}
+.cr td{background:#fff5f5;border-left:2px solid #fca5a5}.cr:hover td{background:#fee2e2}
+input[type=text]{background:var(--dim);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:10px;border-radius:3px;padding:3px 5px;width:100%;outline:none}
+input:focus{border-color:var(--acc);background:#fff}
+textarea{background:var(--dim);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:10px;border-radius:3px;padding:4px 6px;width:100%;outline:none;resize:vertical;min-height:40px}
+textarea:focus{border-color:var(--acc);background:#fff}
+.acc-card{border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:8px;background:var(--card)}
+.acc-h{padding:8px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--dim);border-bottom:1px solid transparent}
+.acc-h:hover{background:#ede9e3}.acc-h.open{border-bottom-color:var(--border)}
+.acc-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;flex:1}
+.acc-time{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--acc)}
+.acc-b{display:none}.acc-b.open{display:block}
+.arow{display:flex;align-items:flex-start;gap:8px;padding:7px 12px;border-bottom:1px solid var(--border)}
+.arow:last-child{border-bottom:none}.aico{font-size:12px;padding-top:1px;flex-shrink:0}
+.an{font-weight:600;font-size:11px;margin-bottom:1px}.ad{font-size:10px;color:var(--muted);line-height:1.55;flex:1}
+.at{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--acc);white-space:nowrap;margin-left:6px;flex-shrink:0;padding-top:2px}
+.ab-card{background:var(--card);border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:10px}
+.ab-hdr{padding:8px 12px;background:var(--dim);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.ab-t{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;flex:1}.ab-d{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--acc)}
+.ab-row{display:flex;align-items:center;gap:8px;padding:6px 12px;border-bottom:1px solid var(--border)}.ab-row:last-child{border-bottom:none}
+.ab-n{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--acc);width:16px;flex-shrink:0}
+.ab-name{font-weight:600;font-size:11px;flex:1}.ab-dur{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);white-space:nowrap}
+.tg{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.tb{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:11px}
+.tb-t{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;margin-bottom:7px}
+.mr{display:grid;grid-template-columns:95px 1fr 1fr 1fr 1fr;gap:3px;align-items:center;margin-bottom:3px}
+.lr{display:grid;grid-template-columns:1fr 52px 52px 52px 52px 52px 52px;gap:3px;align-items:center;margin-bottom:3px}
+.ch{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'JetBrains Mono',monospace;text-align:center}
+.ml{font-size:10px;color:var(--muted)}
+.save-btn{position:fixed;bottom:18px;right:18px;z-index:300;background:var(--acc);color:#fff;border:none;border-radius:5px;padding:8px 14px;font-family:'Syne',sans-serif;font-weight:800;font-size:11px;cursor:pointer;box-shadow:0 2px 8px rgba(180,83,9,.3)}
+.save-ok{position:fixed;bottom:18px;right:105px;background:var(--green);color:#fff;padding:7px 10px;border-radius:5px;font-size:10px;font-weight:700;display:none;z-index:300}
+@media(max-width:600px){.sbar{grid-template-columns:repeat(3,1fr)}.wrow{grid-template-columns:repeat(4,1fr)}.tg{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="logo">BLOCK 1</div>
+  <button class="nb active" onclick="sp('ov',this)">Overview</button>
+  <button class="nb" onclick="sp('ss',this)">Sessions</button>
+  <button class="nb" onclick="sp('wu',this)">Warm-Up</button>
+  <button class="nb" onclick="sp('gf',this)">Golf Days</button>
+  <button class="nb" onclick="sp('ab',this)">Abs</button>
+  <button class="nb" onclick="sp('yg',this)">Yoga</button>
+  <button class="nb" onclick="sp('tr',this)">Tracker</button>
+</div>
+
+<div class="hero">
+  <div class="eye">Block 1 · Weeks 1–6 · Mass Made Simple</div>
+  <h1>PURE <span>MMS</span></h1>
+  <p class="sub">14 sessions over 6 weeks, every other day. Same skeleton each session. Abs Mon + Fri. Golf athletic days Tue/Thu. Yoga + sauna after every session.</p>
+  <a class="plink" href="block2.html">Block 2 → Weeks 7–15</a>
+</div>
+
+<div class="sbar">
+  <div class="sc"><div class="sv">6</div><div class="sl">Weeks</div></div>
+  <div class="sc"><div class="sv">14</div><div class="sl">Sessions</div></div>
+  <div class="sc"><div class="sv">65lb</div><div class="sl">Squat Start</div></div>
+  <div class="sc"><div class="sv">2–3–5</div><div class="sl">Ladder</div></div>
+  <div class="sc"><div class="sv">M/W/F</div><div class="sl">Lifting</div></div>
+  <div class="sc"><div class="sv">T/Th</div><div class="sl">Golf Days</div></div>
+</div>
+
+<!-- OVERVIEW -->
+<div id="ov" class="page active">
+  <div class="stag">Block 1 Structure</div>
+  <div class="note gold"><strong>Dan John's Mass Made Simple exactly.</strong> DB Incline replaces barbell bench throughout (shoulder). Same 6-exercise skeleton every session. Complex weight = military press limit — never put the bar down mid-complex.</div>
+  <div class="note"><strong>Session order:</strong> Warm-Up → DB Incline → One-Arm KB Press → Bat Wings → Bird Dog → Complex → High-Rep Squat → Abs (Mon/Fri) → 20-min Yoga → 15-min Sauna.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+    <div class="note" style="margin:0"><strong>2-3-5 Ladder:</strong> 2 reps → 20-sec rest → 3 reps → 20-sec rest → 5 reps = 1 cluster (10 reps). Do 2 clusters = 20 reps same weight.</div>
+    <div class="note teal" style="margin:0"><strong>Complex (no bar down):</strong> Row → Power Clean → Front Squat → Military Press → Back Squat → Good Morning. Military press dictates the weight for the whole complex.</div>
+  </div>
+  <div class="note"><strong>Complex progression:</strong> Wk 1–2: 5 rounds × 3 reps · Wk 3–4: 4 rounds × 4 reps, add weight after rnd 3 · Wk 5–6: 3 rounds × 5 reps, push weight each round. Final weight = starting weight next session.</div>
+  <div class="note red"><strong>Squat targets:</strong> Wk 1: 2×30 @ 65 · Wk 2: 2×30 @ 75 · Wk 3: 2×40 @ 85 · Wk 4: 2×40 @ 95 · Wk 5: 1×50 @ 115 · Wk 6: 1×MAX @ 135 lbs.</div>
+  <div class="wrow">
+    <div class="dp mm"><div class="dl">Mon</div><div class="dn">MMS</div><div class="df">Abs</div></div>
+    <div class="dp gf"><div class="dl">Tue</div><div class="dn">GOLF</div><div class="df">+Chest</div></div>
+    <div class="dp mm"><div class="dl">Wed</div><div class="dn">MMS</div><div class="df">No abs</div></div>
+    <div class="dp gf"><div class="dl">Thu</div><div class="dn">GOLF</div><div class="df">+Chest</div></div>
+    <div class="dp mm"><div class="dl">Fri</div><div class="dn">MMS</div><div class="df">Abs</div></div>
+    <div class="dp rs"><div class="dl">Sat</div><div class="dn">REST</div></div>
+    <div class="dp rs"><div class="dl">Sun</div><div class="dn">REST</div></div>
+  </div>
+</div>
+
+<!-- SESSIONS -->
+<div id="ss" class="page">
+  <div class="stag">MMS Sessions · Weeks 1–6</div>
+  <div class="note gold">Every session uses the same table. Only the complex scheme and squat target change week to week — shown in the week note above each table.</div>
+  <div class="wk-tabs">
+    <button class="wt active" onclick="sw('w1',this)">Week 1</button>
+    <button class="wt" onclick="sw('w2',this)">Week 2</button>
+    <button class="wt" onclick="sw('w3',this)">Week 3</button>
+    <button class="wt" onclick="sw('w4',this)">Week 4</button>
+    <button class="wt" onclick="sw('w5',this)">Week 5</button>
+    <button class="wt" onclick="sw('w6',this)">Week 6</button>
+  </div>
+
+  <div class="wc active" id="w1">
+    <div class="note"><strong>Wk 1 —</strong> Complex: 5 rounds × 3 reps. Squat: 2×30 @ 65 lbs. Start conservative on the ladder — you'll use the same weights all three sessions.</div>
+    <div class="wcard">
+      <div class="wh"><span class="wb m">MON</span><span class="wb m">WED</span><span class="wb m">FRI</span><span class="wt2">MMS · Week 1</span><span style="font-size:9px;color:var(--muted)">Abs Mon+Fri only</span></div>
+      <table><thead><tr><th style="width:33%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Mon</th><th>Wed</th><th>Fri</th></tr></thead>
+      <tbody>
+        <tr class="cr"><td><div class="en">DB Incline Press (30–45°)</div><div class="tip">Replaces barbell bench. Same 2-3-5 ladder each cluster.</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">One-Arm KB/DB Press</div><div class="tip">Start weaker arm. Full lockout each rep.</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bat Wings</div><div class="tip">Face-down on incline bench. DBs retracted, 10-sec squeeze hold each rep.</div></td><td><span class="sn">3</span></td><td><span class="rn">5 × 10-sec</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bird Dog</div></td><td><span class="sn">3</span></td><td><span class="rn">10 each side</span></td><td><span class="rpe r6">6</span></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td></tr>
+        <tr><td><div class="en">MMS Barbell Complex</div><span class="tp cx">Row→Cln→FSq→Mil→BSq→GM</span></td><td><span class="sn">5 rnds</span></td><td><span class="rn">3 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">High-Rep Back Squat</div><span class="tp kk">65 lbs</span></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r6">6</span></td><td><input type="text" placeholder="65×30"></td><td><input type="text" placeholder="65×30"></td><td><input type="text" placeholder="65×30"></td></tr>
+        <tr><td><div class="en">Ab Circuit</div><span style="font-size:9px;color:var(--muted)">(Mon+Fri only)</span></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="✓"></td><td style="color:var(--muted);font-size:10px;text-align:center">—</td><td><input type="text" placeholder="✓"></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <div class="wc" id="w2">
+    <div class="note"><strong>Wk 2 —</strong> Complex: 5 rounds × 3 reps. Squat: 2×30 @ 75 lbs. Push ladder weights up from Wk 1 if it felt manageable.</div>
+    <div class="wcard">
+      <div class="wh"><span class="wb m">MON</span><span class="wb m">WED</span><span class="wb m">FRI</span><span class="wt2">MMS · Week 2</span></div>
+      <table><thead><tr><th style="width:33%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Mon</th><th>Wed</th><th>Fri</th></tr></thead>
+      <tbody>
+        <tr class="cr"><td><div class="en">DB Incline Press</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">One-Arm KB/DB Press</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bat Wings</div></td><td><span class="sn">3</span></td><td><span class="rn">5 × 10-sec</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bird Dog</div></td><td><span class="sn">3</span></td><td><span class="rn">10 each side</span></td><td><span class="rpe r6">6</span></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td></tr>
+        <tr><td><div class="en">MMS Barbell Complex</div><span class="tp cx">5 rnds × 3 each</span></td><td><span class="sn">5 rnds</span></td><td><span class="rn">3 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">High-Rep Back Squat</div><span class="tp kk">75 lbs</span></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r6">6</span></td><td><input type="text" placeholder="75×30"></td><td><input type="text" placeholder="75×30"></td><td><input type="text" placeholder="75×30"></td></tr>
+        <tr><td><div class="en">Ab Circuit (Mon+Fri)</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="✓"></td><td style="color:var(--muted);font-size:10px;text-align:center">—</td><td><input type="text" placeholder="✓"></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <div class="wc" id="w3">
+    <div class="note"><strong>Wk 3 —</strong> Complex: 4 rounds × 4 reps, add weight after round 3. Squat: 2×40 @ 85 lbs. Ten more reps per set — pace yourself through the 40.</div>
+    <div class="wcard">
+      <div class="wh"><span class="wb m">MON</span><span class="wb m">WED</span><span class="wb m">FRI</span><span class="wt2">MMS · Week 3</span></div>
+      <table><thead><tr><th style="width:33%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Mon</th><th>Wed</th><th>Fri</th></tr></thead>
+      <tbody>
+        <tr class="cr"><td><div class="en">DB Incline Press</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">One-Arm KB/DB Press</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bat Wings</div></td><td><span class="sn">3</span></td><td><span class="rn">5 × 10-sec</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bird Dog</div></td><td><span class="sn">3</span></td><td><span class="rn">10 each side</span></td><td><span class="rpe r6">6</span></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td></tr>
+        <tr><td><div class="en">MMS Complex</div><span class="tp cx">4 rnds × 4 · add wt rnd 3</span></td><td><span class="sn">4 rnds</span></td><td><span class="rn">4 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt1/wt2"></td><td><input type="text" placeholder="wt1/wt2"></td><td><input type="text" placeholder="wt1/wt2"></td></tr>
+        <tr><td><div class="en">High-Rep Back Squat</div><span class="tp kk">85 lbs</span></td><td><span class="sn">2</span></td><td><span class="rn">40</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="85×40"></td><td><input type="text" placeholder="85×40"></td><td><input type="text" placeholder="85×40"></td></tr>
+        <tr><td><div class="en">Ab Circuit (Mon+Fri)</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="✓"></td><td style="color:var(--muted);font-size:10px;text-align:center">—</td><td><input type="text" placeholder="✓"></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <div class="wc" id="w4">
+    <div class="note"><strong>Wk 4 —</strong> Complex: 4 rounds × 4 reps, add weight after round 3. Squat: 2×40 @ 95 lbs. Same structure as Wk 3, more weight. Heavier bar, same 40.</div>
+    <div class="wcard">
+      <div class="wh"><span class="wb m">MON</span><span class="wb m">WED</span><span class="wb m">FRI</span><span class="wt2">MMS · Week 4</span></div>
+      <table><thead><tr><th style="width:33%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Mon</th><th>Wed</th><th>Fri</th></tr></thead>
+      <tbody>
+        <tr class="cr"><td><div class="en">DB Incline Press</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">One-Arm KB/DB Press</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bat Wings</div></td><td><span class="sn">3</span></td><td><span class="rn">5 × 10-sec</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bird Dog</div></td><td><span class="sn">3</span></td><td><span class="rn">10 each side</span></td><td><span class="rpe r6">6</span></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td></tr>
+        <tr><td><div class="en">MMS Complex</div><span class="tp cx">4 rnds × 4 · add wt rnd 3</span></td><td><span class="sn">4 rnds</span></td><td><span class="rn">4 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt1/wt2"></td><td><input type="text" placeholder="wt1/wt2"></td><td><input type="text" placeholder="wt1/wt2"></td></tr>
+        <tr><td><div class="en">High-Rep Back Squat</div><span class="tp kk">95 lbs</span></td><td><span class="sn">2</span></td><td><span class="rn">40</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="95×40"></td><td><input type="text" placeholder="95×40"></td><td><input type="text" placeholder="95×40"></td></tr>
+        <tr><td><div class="en">Ab Circuit (Mon+Fri)</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="✓"></td><td style="color:var(--muted);font-size:10px;text-align:center">—</td><td><input type="text" placeholder="✓"></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <div class="wc" id="w5">
+    <div class="note"><strong>Wk 5 —</strong> Complex: 3 rounds × 5 reps, push weight each round. Squat: 1×50 @ 115 lbs. One set, fifty reps. This is mental.</div>
+    <div class="wcard">
+      <div class="wh"><span class="wb m">MON</span><span class="wb m">WED</span><span class="wb m">FRI</span><span class="wt2">MMS · Week 5</span></div>
+      <table><thead><tr><th style="width:33%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Mon</th><th>Wed</th><th>Fri</th></tr></thead>
+      <tbody>
+        <tr class="cr"><td><div class="en">DB Incline Press</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">One-Arm KB/DB Press</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bat Wings</div></td><td><span class="sn">3</span></td><td><span class="rn">5 × 10-sec</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bird Dog</div></td><td><span class="sn">3</span></td><td><span class="rn">10 each side</span></td><td><span class="rpe r6">6</span></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td></tr>
+        <tr><td><div class="en">MMS Complex</div><span class="tp cx">3 rnds × 5 · push wt each rnd</span></td><td><span class="sn">3 rnds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt1/2/3"></td><td><input type="text" placeholder="wt1/2/3"></td><td><input type="text" placeholder="wt1/2/3"></td></tr>
+        <tr><td><div class="en">High-Rep Back Squat</div><span class="tp kk">115 lbs · 1 set</span></td><td><span class="sn">1</span></td><td><span class="rn">50</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="115×50"></td><td><input type="text" placeholder="115×50"></td><td><input type="text" placeholder="115×50"></td></tr>
+        <tr><td><div class="en">Ab Circuit (Mon+Fri)</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="✓"></td><td style="color:var(--muted);font-size:10px;text-align:center">—</td><td><input type="text" placeholder="✓"></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <div class="wc" id="w6">
+    <div class="note red"><strong>Wk 6 — FINAL MMS WEEK.</strong> Complex: 3 rounds × 5 reps, heaviest of block. Squat: 1×MAX @ 135 lbs. Log your max rep count — that's your Block 1 PR.</div>
+    <div class="wcard">
+      <div class="wh"><span class="wb m">MON</span><span class="wb m">WED</span><span class="wb m">FRI</span><span class="wt2">MMS · Week 6 · Final</span></div>
+      <table><thead><tr><th style="width:33%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Mon</th><th>Wed</th><th>Fri</th></tr></thead>
+      <tbody>
+        <tr class="cr"><td><div class="en">DB Incline Press — Heaviest of Block</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt"></td><td><input type="text" placeholder="PR wt"></td><td><input type="text" placeholder="PR wt"></td></tr>
+        <tr><td><div class="en">One-Arm KB/DB Press — Heaviest</div></td><td><span class="sn">2</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt"></td><td><input type="text" placeholder="PR wt"></td><td><input type="text" placeholder="PR wt"></td></tr>
+        <tr><td><div class="en">Bat Wings</div></td><td><span class="sn">3</span></td><td><span class="rn">5 × 10-sec</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td><td><input type="text" placeholder="wt"></td></tr>
+        <tr><td><div class="en">Bird Dog</div></td><td><span class="sn">3</span></td><td><span class="rn">10 each side</span></td><td><span class="rpe r6">6</span></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td><td><input type="text" placeholder="BW"></td></tr>
+        <tr><td><div class="en">MMS Complex — Heaviest of Block</div><span class="tp cx">3 rnds × 5 · push each rnd</span></td><td><span class="sn">3 rnds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt1/2/3"></td><td><input type="text" placeholder="wt1/2/3"></td><td><input type="text" placeholder="wt1/2/3"></td></tr>
+        <tr><td><div class="en">High-Rep Squat — MAX REPS</div><span class="tp kk">135 lbs</span></td><td><span class="sn">1</span></td><td><span class="rn">Max reps</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="135×?"></td><td><input type="text" placeholder="135×?"></td><td><input type="text" placeholder="135×?"></td></tr>
+        <tr><td><div class="en">Ab Circuit (Mon+Fri)</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="✓"></td><td style="color:var(--muted);font-size:10px;text-align:center">—</td><td><input type="text" placeholder="✓"></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- WARM-UP -->
+<div id="wu" class="page">
+  <div class="stag">Warm-Up · Every Session · ~8 Min</div>
+  <div class="note red"><strong>Never skip thoracic foam rolling.</strong> It's the highest-leverage prep before loading a stiff thoracic spine under a barbell.</div>
+  <div class="wcard">
+    <div class="wh"><span class="wb p">FOAM ROLL</span><span class="wt2">First — ~4 min</span></div>
+    <table><thead><tr><th style="width:28%">Area</th><th>Time</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><div class="en">Thoracic Extension ★</div></td><td><span class="rn">60 sec</span></td><td class="tip">Roller at mid-back. Arms crossed. Lean back, extend over roller. Move up/down 2–3", pause on tight spots. Work mid-back to shoulder blades.</td></tr>
+      <tr><td><div class="en">Lat / Upper Back</div></td><td><span class="rn">30 sec/side</span></td><td class="tip">Side-lying, roller under armpit. Roll slowly armpit to mid-back.</td></tr>
+      <tr><td><div class="en">Hip Flexor / Quad</div></td><td><span class="rn">30 sec/side</span></td><td class="tip">Face down, roller under quad. Roll hip to knee, pause on tight spots.</td></tr>
+      <tr><td><div class="en">Glute / Piriformis</div></td><td><span class="rn">30 sec/side</span></td><td class="tip">Sit on roller, cross ankle over opposite knee, lean into that hip.</td></tr>
+    </tbody></table>
+  </div>
+  <div class="wcard">
+    <div class="wh"><span class="wb p">DYNAMIC</span><span class="wt2">After Rolling — ~4 min</span></div>
+    <table><thead><tr><th style="width:28%">Movement</th><th>Reps</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><div class="en">Cat-Cow</div></td><td><span class="rn">10 slow</span></td><td class="tip">On all fours. Inhale — belly drops, head up. Exhale — spine rounds, chin tucked. Feel each vertebra.</td></tr>
+      <tr><td><div class="en">World's Greatest Stretch</div></td><td><span class="rn">5/side</span></td><td class="tip">Lunge position, same-side hand inside foot. Rotate opposite arm to ceiling 2 sec, reach back under body 2 sec.</td></tr>
+      <tr><td><div class="en">Hip Circles</div></td><td><span class="rn">8/direction</span></td><td class="tip">Feet shoulder-width, hands on hips. Large slow circles both ways.</td></tr>
+      <tr><td><div class="en">Arm Circles + Shoulder Rolls</div></td><td><span class="rn">10/direction</span></td><td class="tip">Forward 10, backward 10. Then shoulder rolls forward 5, backward 5.</td></tr>
+      <tr><td><div class="en">Leg Swings</div></td><td><span class="rn">10/leg</span></td><td class="tip">Hand on wall for balance. Swing leg forward/back in controlled arc, increasing range.</td></tr>
+      <tr><td><div class="en">Goblet Squat (light)</div></td><td><span class="rn">5 slow</span></td><td class="tip">Light DB at chest, full depth, 2-sec pause at bottom. Movement primer only.</td></tr>
+    </tbody></table>
+  </div>
+</div>
+
+<!-- GOLF -->
+<div id="gf" class="page">
+  <div class="stag">Golf Athletic Days · Tue + Thu · Block 1</div>
+  <div class="note green"><strong>Built around TPI (Titleist Performance Institute) movement principles and research by Dr. Greg Rose.</strong> Rotational power, hip-shoulder separation, single-leg stability, and anti-rotation strength are the four proven pillars of athletic golf fitness. This session trains all four at low-to-moderate intensity so it doesn't compromise MMS recovery on M/W/F.</div>
+  <div class="note gold"><strong>Order:</strong> Dynamic Warm-Up (5 min) → Power (chops, slams) → Stability (Pallof, SL-RDL) → Mobility (hip 90/90, thoracic) → Chest touch → Golf stretch (20 min). Rest 60–90 sec between sets.</div>
+  <div class="wcard">
+    <div class="wh"><span class="wb g">TUE / THU</span><span class="wt2">Golf Athletic Session · All of Block 1</span></div>
+    <table><thead><tr><th style="width:35%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead>
+    <tbody>
+      <tr><td><div class="en">Dynamic Warm-Up</div></td><td>—</td><td><span class="rn">5 min</span></td><td>—</td><td>—</td></tr>
+      <tr><td><div class="en">Cable Rotational Chop — High to Low</div><span class="tp gft">TPI POWER</span><div class="tip">Mimics downswing path. Keep hips stable, rotate through thoracic. Pull through to hip.</div></td><td><span class="sn">3</span></td><td><span class="rn">8/side</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+      <tr><td><div class="en">Cable Rotational Lift — Low to High</div><span class="tp gft">TPI POWER</span><div class="tip">Backswing path. Opposite movement to chop. Full hip turn, arms stay straight.</div></td><td><span class="sn">3</span></td><td><span class="rn">8/side</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+      <tr><td><div class="en">Pallof Press (anti-rotation)</div><span class="tp gft">TPI STABILITY</span><div class="tip">Press out from chest, hold 2 sec, return. Core resists rotation. Maintain tall posture.</div></td><td><span class="sn">3</span></td><td><span class="rn">10/side</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+      <tr><td><div class="en">Single-Leg RDL (DB)</div><span class="tp gft">TPI STABILITY</span><div class="tip">Hip hinge on one leg. Mirrors the golf backswing loading pattern. Keep pelvis level throughout.</div></td><td><span class="sn">3</span></td><td><span class="rn">8/leg</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+      <tr><td><div class="en">Landmine Rotation</div><span class="tp gft">TPI POWER</span><div class="tip">Bar in landmine, hold end with both hands, rotate hip-to-hip. Trains hip-shoulder separation — the #1 power source in golf.</div></td><td><span class="sn">3</span></td><td><span class="rn">8/side</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+      <tr><td><div class="en">Medicine Ball Rotational Slam</div><span class="tp gft">POWER</span><div class="tip">Rotate, reach overhead, slam with full hip and torso rotation. Trains sequencing — hips before hands.</div></td><td><span class="sn">3</span></td><td><span class="rn">6/side</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt"></td></tr>
+      <tr><td><div class="en">Hip 90/90 Switches</div><span class="tp gft">TPI MOBILITY</span><div class="tip">Seated on floor, both knees at 90°. Rotate hips side to side, keeping chest tall. Hip internal/external rotation — key for backswing and follow-through.</div></td><td><span class="sn">2</span></td><td><span class="rn">10/side</span></td><td><span class="rpe r6">6</span></td><td>—</td></tr>
+      <tr><td><div class="en">Seated Thoracic Rotation (with club or stick)</div><span class="tp gft">TPI MOBILITY</span><div class="tip">Sit cross-legged or on bench. Hold club across shoulders. Rotate thoracic only — hips stay square. TPI identifies limited thoracic rotation as the most common swing fault.</div></td><td><span class="sn">2</span></td><td><span class="rn">10/side</span></td><td><span class="rpe r6">6</span></td><td>—</td></tr>
+      <tr class="cr"><td><div class="en">Cable Fly Low-to-High — Chest Touch</div><span class="tp ct">CHEST TOUCH</span><div class="tip">Keeps chest motor pattern active on golf days. Light — focus on full stretch and squeeze.</div></td><td><span class="sn">3</span></td><td><span class="rn">15</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+      <tr><td><div class="en">Golf Stretch Sequence</div></td><td>—</td><td><span class="rn">20 min</span></td><td>—</td><td style="color:var(--muted);font-size:10px">See Yoga tab</td></tr>
+    </tbody></table>
+  </div>
+</div>
+
+<!-- ABS -->
+<div id="ab" class="page">
+  <div class="stag">Ab Circuit · Mon + Fri · Block 1</div>
+  <div class="note">After lifting, before yoga. No rest between exercises. ~6 min 30 sec.</div>
+  <div class="ab-card">
+    <div class="ab-hdr"><span style="font-size:14px">🔥</span><span class="ab-t">Ab Circuit</span><span class="ab-d">~6:30 · Mon + Fri</span></div>
+    <div class="ab-row"><div class="ab-n">1</div><div class="ab-name">Heels to Heaven w/ Twist</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row"><div class="ab-n">2</div><div class="ab-name">Elbow to Opposite Knee Crunch</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row"><div class="ab-n">3</div><div class="ab-name">Flutter Kicks</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row"><div class="ab-n">4</div><div class="ab-name">Plank Spiderman (raised / forearm / push-up)</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row"><div class="ab-n">5</div><div class="ab-name">Classic Crunch</div><div class="ab-dur">90 sec</div></div>
+    <div class="ab-row"><div class="ab-n">6</div><div class="ab-name">Floor Wipers or Russian Twist</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row"><div class="ab-n">7</div><div class="ab-name">Full-Body Crunch (20 reps) or Top-Down Plank</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row" style="background:#fff8f5"><div class="ab-n">★</div><div class="ab-name">Classic Crunch Squeeze + Hold — to failure</div><div class="ab-dur">Failure</div></div>
+  </div>
+</div>
+
+<!-- YOGA -->
+<div id="yg" class="page">
+  <div class="stag">Post-Session Yoga · MMS-Specific · ~20 Min</div>
+  <div class="note"><strong>Designed for what MMS taxes.</strong> Heavy thoracic emphasis — the biggest limiting factor in this block. Do after every session while muscles are warm. Click any section to expand.</div>
+  <div class="note red"><strong>Thoracic note:</strong> Foam rolling unlocks it before you load it. This yoga reinforces it after. Both matter every session.</div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>🧱</span><span class="acc-title">1 · Thoracic Spine + Upper Back</span><span class="acc-time">8 min ★</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🌊</div><div><div class="an">Cat-Cow (slow)</div><div class="ad">10 very slow reps post-session. Feel each vertebra move individually — not a warm-up, a deliberate mobilization.</div></div><div class="at">10 reps</div></div>
+      <div class="arow"><div class="aico">📖</div><div><div class="an">Book Openers — Side-Lying Thoracic Rotation</div><div class="ad">Lie on side, knees at 90°. Sweep top arm overhead and behind, chest opens toward ceiling. Hold 2–3 sec at end range. Best active thoracic rotation drill there is.</div></div><div class="at">8/side</div></div>
+      <div class="arow"><div class="aico">🧵</div><div><div class="an">Thread the Needle</div><div class="ad">On all fours, thread one arm under body along floor. Let shoulder touch ground, hold 30 sec. Releases rhomboids and mid-traps loaded by bat wings and rows.</div></div><div class="at">30 sec/side</div></div>
+      <div class="arow"><div class="aico">🪵</div><div><div class="an">Foam Roller Thoracic Extension</div><div class="ad">Same as warm-up but go deeper now — muscles are warm. Extra time on spots that were tight during the session.</div></div><div class="at">90 sec</div></div>
+      <div class="arow"><div class="aico">✈️</div><div><div class="an">Prone Y-T-W</div><div class="ad">Face down, chest slightly off floor. Arms through Y (overhead 45°), T (straight out), W (elbows bent, squeeze blades). Hold each 3 sec. Builds lower traps and serratus — capacity to stay extended, not just stretch.</div></div><div class="at">8 each</div></div>
+    </div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>🏋️</span><span class="acc-title">2 · Shoulders + Rear Delts</span><span class="acc-time">4 min</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🦅</div><div><div class="an">Eagle Arms</div><div class="ad">Arms forward at shoulder height, wrap one arm under the other at elbows, lift. Stretches posterior rotator cuff and upper back.</div></div><div class="at">45 sec/side</div></div>
+      <div class="arow"><div class="aico">🤗</div><div><div class="an">Cross-Body Shoulder Stretch</div><div class="ad">Pull one arm across chest with opposite hand. Rear delt and rotator cuff.</div></div><div class="at">30 sec/side</div></div>
+      <div class="arow"><div class="aico">🚪</div><div><div class="an">Doorframe Chest Opener</div><div class="ad">Arm at 90° on post or cable upright, step through and lean forward. Reverses the forward shoulder position pressing builds over time.</div></div><div class="at">45 sec/side</div></div>
+    </div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>🦵</span><span class="acc-title">3 · Hips + Hip Flexors</span><span class="acc-time">4 min</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🕊️</div><div><div class="an">Pigeon Pose</div><div class="ad">Front shin roughly parallel to mat, rear leg extended. Tight hip rotators directly restrict squat depth — most important hip stretch for this program.</div></div><div class="at">60 sec/side</div></div>
+      <div class="arow"><div class="aico">🧎</div><div><div class="an">Low Lunge Hip Flexor</div><div class="ad">Rear knee on floor, front foot forward, drive hips forward and down. Tight hip flexors restrict squat depth and front rack position.</div></div><div class="at">30 sec/side</div></div>
+    </div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>📐</span><span class="acc-title">4 · Hamstrings + Posterior Chain</span><span class="acc-time">2 min</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🐕</div><div><div class="an">Downward Dog into Forward Fold</div><div class="ad">45 sec downward dog (heels press toward floor). Walk feet in, hang in forward fold 45 sec. Full posterior chain release after good mornings.</div></div><div class="at">90 sec</div></div>
+    </div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>🤲</span><span class="acc-title">5 · Wrists + Forearms</span><span class="acc-time">1 min</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🤲</div><div><div class="an">Wrist Flexor + Extensor Stretch</div><div class="ad">Arm extended palm up, pull fingers back 20 sec. Then arm extended palm down, pull fingers toward you 20 sec. Front rack demands wrist flexibility most people lack.</div></div><div class="at">20 sec each × 2</div></div>
+    </div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>🌙</span><span class="acc-title">6 · Spinal Decompression — Close Every Session</span><span class="acc-time">1 min</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🧘</div><div><div class="an">Child's Pose</div><div class="ad">Kneel, fold forward, arms extended. Gravity decompresses the spine. 30 sec.</div></div><div class="at">30 sec</div></div>
+      <div class="arow"><div class="aico">🙌</div><div><div class="an">Passive Bar Hang</div><div class="ad">Wide grip, feet lightly on floor. Let spine and lats decompress. No bar? Child's pose another 30 sec. Then sauna.</div></div><div class="at">30 sec</div></div>
+    </div>
+  </div>
+
+  <div class="note green" style="margin-top:6px"><strong>Golf Day Yoga (after Tue/Thu session):</strong> Seated Thoracic Rotation with club 60 sec/side → Pigeon Pose 60 sec/side → Hip Flexor Lunge 30 sec/side → Supine Spinal Twist 45 sec/side → Cross-Body Shoulder 30 sec/side → Wrist Flexor + Extensor 20 sec each → Downward Dog into Forward Fold 90 sec. ~20 min total. Then sauna.</div>
+</div>
+
+<!-- TRACKER -->
+<div id="tr" class="page">
+  <div class="stag">Block 1 Tracker</div>
+  <div class="note gold">Measure at start and end of block. Log key lift weights after each session in Sessions tab. Use this for big-picture progress.</div>
+  <div class="tg">
+    <div class="tb">
+      <div class="tb-t">📏 Measurements</div>
+      <div class="mr"><div></div><div class="ch">Start</div><div class="ch">Wk 2</div><div class="ch">Wk 4</div><div class="ch">Wk 6</div></div>
+      <div class="mr"><div class="ml">Arms (flexed)</div><input type="text" value='13.5"'><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Chest</div><input type="text" value='42"'><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Shoulders</div><input type="text" value='49"'><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Waist</div><input type="text" value='31"'><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Thighs</div><input type="text" value='~23.5"'><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Calves</div><input type="text" value='14.5"'><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Forearms</div><input type="text" value='11.5"'><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Neck</div><input type="text" value='15"'><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Bodyweight</div><input type="text" placeholder="lbs"><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+    </div>
+    <div class="tb">
+      <div class="tb-t">🏋️ MMS Key Lifts</div>
+      <div class="lr"><div></div><div class="ch">W1</div><div class="ch">W2</div><div class="ch">W3</div><div class="ch">W4</div><div class="ch">W5</div><div class="ch">W6</div></div>
+      <div class="lr"><div class="ml">DB Incline (ladder wt)</div><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div>
+      <div class="lr"><div class="ml">KB Press (ladder wt)</div><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div>
+      <div class="lr"><div class="ml">Complex (end weight)</div><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div>
+      <div class="lr"><div class="ml">Squat wt × reps</div><input type="text" value="65×30"><input type="text" value="75×30"><input type="text" value="85×40"><input type="text" value="95×40"><input type="text" value="115×50"><input type="text" placeholder="135×?"></div>
+    </div>
+  </div>
+  <div style="margin-top:9px"><div class="tb">
+    <div class="tb-t">📝 Notes</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:4px">
+      <div><div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:3px">Weeks 1–2</div><textarea placeholder="Adaptation, energy, complex feel"></textarea></div>
+      <div><div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:3px">Weeks 3–4</div><textarea placeholder="Rep volume, 40-rep squat notes"></textarea></div>
+      <div><div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:3px">Weeks 5–6 · PR</div><textarea placeholder="50-rep result, max squat PR @ 95 lbs"></textarea></div>
+    </div>
+  </div></div>
+</div>
+
+<button class="save-btn" onclick="saveAll()">💾 Save</button>
+<div class="save-ok" id="sok">✓ Saved</div>
+
+<script>
+function sp(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');window.scrollTo(0,0)}
+function sw(id,btn){document.querySelectorAll('.wc').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.wt').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active')}
+function tg(h){h.nextElementSibling.classList.toggle('open');h.classList.toggle('open')}
+function saveAll(){const d={};document.querySelectorAll('input,textarea').forEach((el,i)=>{if(el.value)d['f'+i]=el.value});try{localStorage.setItem('b1d',JSON.stringify(d))}catch(e){}const n=document.getElementById('sok');n.style.display='block';setTimeout(()=>n.style.display='none',2000)}
+function loadAll(){try{const r=localStorage.getItem('b1d');if(r){const d=JSON.parse(r);document.querySelectorAll('input,textarea').forEach((el,i)=>{if(d['f'+i])el.value=d['f'+i]})}}catch(e){}}
+loadAll();document.addEventListener('input',()=>{clearTimeout(window._t);window._t=setTimeout(saveAll,1500)});
+</script>
+</body>
+</html>
