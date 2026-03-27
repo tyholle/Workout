@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Block 2 · Weeks 7–15</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0f2f5;--card:#ffffff;--dim:#e8eaed;--border:#d1d5db;--acc:#1e40af;--acc2:#2563eb;--red:#dc2626;--green:#15803d;--blue:#1d4ed8;--teal:#0f766e;--text:#111827;--muted:#6b7280;--gold:#92400e;}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;color-scheme:light}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:11px;-webkit-font-smoothing:antialiased}
+.nav{position:sticky;top:0;z-index:200;background:#ffffff;border-bottom:1px solid var(--border);display:flex;align-items:center;overflow-x:auto;padding:0 14px;gap:0;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:var(--acc);padding:10px 12px 10px 0;border-right:1px solid var(--border);margin-right:4px;white-space:nowrap}
+.nb{padding:10px 9px;font-size:9px;letter-spacing:.6px;text-transform:uppercase;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;border:none;background:none;font-family:'Inter',sans-serif;border-bottom:2px solid transparent}
+.nb:hover{color:var(--text)}.nb.active{color:var(--acc);border-bottom-color:var(--acc)}
+.page{display:none;max-width:1040px;margin:0 auto;padding:20px 14px 70px}.page.active{display:block}
+.hero{padding:28px 20px 18px;max-width:1040px;margin:0 auto;background:#ffffff}
+.eye{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--acc);text-transform:uppercase;margin-bottom:6px}
+h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(24px,5vw,44px);line-height:.93;letter-spacing:-1px;margin-bottom:8px}
+h1 span{color:#cbd5e1}
+.sub{color:var(--muted);max-width:500px;line-height:1.7;font-size:11px}
+.plink{display:inline-block;margin-top:8px;color:var(--acc);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;padding:6px 11px;border-radius:4px;border:1px solid var(--border);background:var(--dim)}
+.sbar{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#ffffff}
+.sc{padding:9px 4px;border-right:1px solid var(--border);text-align:center;background:#ffffff}.sc:last-child{border-right:none}
+.sv{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--acc);line-height:1}
+.sl{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.stag{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;background:#1e293b;margin-bottom:10px;padding:6px 10px;border-radius:4px;display:inline-block}
+.note{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:4px;padding:8px 11px;margin-bottom:8px;font-size:11px;color:var(--muted);line-height:1.7}
+.note.gold{border-left-color:var(--gold)}.note.red{border-left-color:var(--red)}.note.green{border-left-color:var(--green)}.note.teal{border-left-color:var(--teal)}.note.blue{border-left-color:var(--blue)}.note strong{color:var(--text)}
+.wk-tabs{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:10px}
+.wt{padding:5px 10px;font-size:9px;font-family:'JetBrains Mono',monospace;border:1px solid var(--border);border-radius:4px;color:var(--muted);cursor:pointer;background:var(--card);white-space:nowrap}
+.wt:hover{border-color:var(--acc2);color:var(--acc)}
+.wt.f.active{background:#eff6ff;border-color:#3b82f6;color:#1d4ed8;font-weight:600}
+.wt.i.active{background:#fffbeb;border-color:#f59e0b;color:#92400e;font-weight:600}
+.wt.p.active{background:#fef2f2;border-color:#ef4444;color:#dc2626;font-weight:600}
+.wc{display:none}.wc.active{display:block}
+.wrow{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:10px}
+.dp{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:7px 3px;text-align:center}
+.dp.ch{border-top:3px solid var(--red)}.dp.bk{border-top:3px solid var(--blue)}
+.dp.lg{border-top:3px solid var(--green)}.dp.sh{border-top:3px solid var(--gold)}
+.dp.fg{border-top:3px solid var(--teal)}.dp.rs{opacity:.38}
+.dl{font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:1px}
+.dn{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;line-height:1.1}.df{font-size:8px;color:var(--muted);margin-top:1px}
+.tbanner{border-radius:4px;padding:10px 13px;margin-bottom:8px;border:1px solid}
+.tbanner.f{background:#eff6ff;border-color:#bfdbfe}
+.tbanner.i{background:#fffbeb;border-color:#fde68a}
+.tbanner.p{background:#fef2f2;border-color:#fecaca}
+.tw{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px}
+.tw.f{color:#1d4ed8}.tw.i{color:#92400e}.tw.p{color:#dc2626}
+.tn{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;margin-bottom:1px}
+.ts{font-size:10px;color:var(--muted);margin-bottom:5px}
+.td{font-size:11px;color:var(--muted);line-height:1.7}.td strong{color:var(--text)}
+.wcard{margin-bottom:12px}
+.wh{display:flex;align-items:center;gap:5px;padding:7px 10px;background:var(--dim);border:1px solid var(--border);border-bottom:none;border-radius:5px 5px 0 0;flex-wrap:wrap}
+.wb{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;letter-spacing:1px;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.wb.ch{background:var(--red);color:#fff}.wb.bk{background:var(--blue);color:#fff}
+.wb.lg{background:var(--green);color:#fff}.wb.sh{background:var(--gold);color:#fff}
+.wb.fg{background:var(--teal);color:#fff}
+.wt2{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;flex:1}
+table{width:100%;border-collapse:collapse;border:1px solid var(--border);border-radius:0 0 5px 5px;overflow:hidden;background:var(--card)}
+thead tr{background:var(--dim)}
+th{text-align:left;padding:5px 8px;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:600;font-family:'JetBrains Mono',monospace;border-bottom:1px solid var(--border)}
+td{padding:6px 8px;border-bottom:1px solid var(--border);font-size:11px;vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:#f8fafc}
+.en{font-weight:600;font-size:11px}.tip{font-size:10px;color:var(--muted);margin-top:1px;line-height:1.5}
+.sn{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--acc)}
+.rn{font-family:'Syne',sans-serif;font-size:12px;font-weight:700}
+.rpe{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 4px;border-radius:3px;font-weight:500}
+.r6{background:#dcfce7;color:#166534;border:1px solid #86efac}.r7{background:#fef9c3;color:#854d0e;border:1px solid #fde047}
+.r8{background:#ffedd5;color:#9a3412;border:1px solid #fdba74}.r9{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.tp{display:inline-block;font-size:8px;font-family:'JetBrains Mono',monospace;padding:2px 4px;border-radius:3px;background:var(--dim);border:1px solid var(--border);color:var(--muted)}
+.ct{background:#fef2f2;border-color:#fca5a5;color:#dc2626}.cx{background:#f0fdfa;border-color:#5eead4;color:#0f766e}
+.kk{background:#fef3c7;border-color:#fcd34d;color:#92400e}
+.cr td{background:#fff5f5;border-left:2px solid #fca5a5}.cr:hover td{background:#fee2e2}
+input[type=text]{background:var(--dim);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:10px;border-radius:3px;padding:3px 5px;width:100%;outline:none}
+input:focus{border-color:var(--acc);background:#fff}
+textarea{background:var(--dim);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:10px;border-radius:3px;padding:4px 6px;width:100%;outline:none;resize:vertical;min-height:40px}
+textarea:focus{border-color:var(--acc);background:#fff}
+.acc-card{border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:8px;background:var(--card)}
+.acc-h{padding:8px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--dim);border-bottom:1px solid transparent}
+.acc-h:hover{background:#dde1e7}.acc-h.open{border-bottom-color:var(--border)}
+.acc-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;flex:1}
+.acc-time{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--acc)}
+.acc-b{display:none}.acc-b.open{display:block}
+.arow{display:flex;align-items:flex-start;gap:8px;padding:7px 12px;border-bottom:1px solid var(--border)}
+.arow:last-child{border-bottom:none}.aico{font-size:12px;padding-top:1px;flex-shrink:0}
+.an{font-weight:600;font-size:11px;margin-bottom:1px}.ad{font-size:10px;color:var(--muted);line-height:1.55;flex:1}
+.at{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--acc);white-space:nowrap;margin-left:6px;flex-shrink:0;padding-top:2px}
+.ab-card{background:var(--card);border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:10px}
+.ab-hdr{padding:8px 12px;background:var(--dim);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.ab-t{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;flex:1}.ab-d{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--acc)}
+.ab-row{display:flex;align-items:center;gap:8px;padding:6px 12px;border-bottom:1px solid var(--border)}.ab-row:last-child{border-bottom:none}
+.ab-n{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--acc);width:16px;flex-shrink:0}
+.ab-name{font-weight:600;font-size:11px;flex:1}.ab-dur{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);white-space:nowrap}
+.scards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:11px;text-align:center}
+.scard-ico{font-size:18px;margin-bottom:4px}
+.scard-t{font-weight:700;font-size:11px;margin-bottom:2px}
+.scard-d{font-size:10px;color:var(--muted);line-height:1.5}
+.tg{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.tb{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:11px}
+.tb-t{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;margin-bottom:7px}
+.mr{display:grid;grid-template-columns:95px 1fr 1fr 1fr 1fr;gap:3px;align-items:center;margin-bottom:3px}
+.lr{display:grid;grid-template-columns:1fr 48px 48px 48px 48px 48px 48px 48px 48px 48px;gap:3px;align-items:center;margin-bottom:3px}
+.ch{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'JetBrains Mono',monospace;text-align:center}
+.ml{font-size:10px;color:var(--muted)}
+.save-btn{position:fixed;bottom:18px;right:18px;z-index:300;background:var(--acc);color:#fff;border:none;border-radius:5px;padding:8px 14px;font-family:'Syne',sans-serif;font-weight:800;font-size:11px;cursor:pointer;box-shadow:0 2px 8px rgba(30,64,175,.3)}
+.save-ok{position:fixed;bottom:18px;right:105px;background:var(--green);color:#fff;padding:7px 10px;border-radius:5px;font-size:10px;font-weight:700;display:none;z-index:300}
+@media(max-width:600px){.sbar{grid-template-columns:repeat(3,1fr)}.wrow{grid-template-columns:repeat(4,1fr)}.tg{grid-template-columns:1fr}.scards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="logo">BLOCK 2</div>
+  <button class="nb active" onclick="sp('ov',this)">Overview</button>
+  <button class="nb" onclick="sp('ss',this)">Sessions</button>
+  <button class="nb" onclick="sp('ab',this)">Abs</button>
+  <button class="nb" onclick="sp('yg',this)">Yoga</button>
+  <button class="nb" onclick="sp('sa',this)">Sauna</button>
+  <button class="nb" onclick="sp('tr',this)">Tracker</button>
+</div>
+
+<div class="hero">
+  <div class="eye">Block 2 · Weeks 7–15 · 5-Day Split</div>
+  <h1>THE <span>SPLIT</span></h1>
+  <p class="sub">9 weeks. New technique every week. Foundation → Intensification → Peak. Chest opens Monday and Thursday. Iron Cross closes every Monday. Complex + squats on Friday throughout.</p>
+  <a class="plink" href="block1.html">← Block 1 · Weeks 1–6</a>
+</div>
+
+<div class="sbar">
+  <div class="sc"><div class="sv">9</div><div class="sl">Weeks</div></div>
+  <div class="sc"><div class="sv">5</div><div class="sl">Days/Wk</div></div>
+  <div class="sc"><div class="sv">2×</div><div class="sl">Chest/Wk</div></div>
+  <div class="sc"><div class="sv">M/W/F</div><div class="sl">Abs Days</div></div>
+  <div class="sc"><div class="sv">Iron X</div><div class="sl">Mon Finisher</div></div>
+  <div class="sc"><div class="sv">Forge</div><div class="sl">Fri Always</div></div>
+</div>
+
+<!-- OVERVIEW -->
+<div id="ov" class="page active">
+  <div class="stag">Block 2 Structure</div>
+  <div class="note red"><strong>Chest is the priority.</strong> Chest opens Monday with full volume. Thursday always starts with a chest opener set. Iron Cross closes Monday every week — no exceptions.</div>
+  <div class="note teal"><strong>The Iron Cross (every Monday):</strong> DB Incline → DB Flat → DB Fly → DB Pullover. One pair of DBs, no put-down. 3-sec eccentric every rep. 3 rounds × 8 reps each. 60 sec between rounds.</div>
+  <div class="note"><strong>Friday Forge always:</strong> MMS Complex 3 rounds × 5 each (RPE 7) + High-Rep Back Squat 2×30 (RPE 7). Never changes regardless of technique week.</div>
+  <div class="note"><strong>Abs:</strong> Mon, Wed, Fri every week. After lifting, before yoga.</div>
+  <div class="wrow">
+    <div class="dp ch"><div class="dl">Mon</div><div class="dn">CHEST</div><div class="df">Iron Cross</div></div>
+    <div class="dp bk"><div class="dl">Tue</div><div class="dn">BACK+BI</div><div class="df">Iron Back</div></div>
+    <div class="dp lg"><div class="dl">Wed</div><div class="dn">LEGS</div><div class="df">Abs</div></div>
+    <div class="dp sh"><div class="dl">Thu</div><div class="dn">SHLD+ARMS</div><div class="df">Chest opener</div></div>
+    <div class="dp fg"><div class="dl">Fri</div><div class="dn">FORGE</div><div class="df">Complex+Abs</div></div>
+    <div class="dp rs"><div class="dl">Sat</div><div class="dn">REST</div></div>
+    <div class="dp rs"><div class="dl">Sun</div><div class="dn">REST</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:5px;padding:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#1d4ed8;letter-spacing:2px;margin-bottom:5px">FOUNDATION · WKS 7–9</div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.8">
+        <strong style="color:var(--text);display:block">Wk 7 — Controlled Eccentrics</strong>3-sec lower every rep. Baseline loads.<br><br>
+        <strong style="color:var(--text);display:block">Wk 8 — Pre-Exhaust</strong>Isolation → compound, zero rest.<br><br>
+        <strong style="color:var(--text);display:block">Wk 9 — Drop Sets</strong>Final set only: drop 25–30%, max reps.
+      </div>
+    </div>
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:5px;padding:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#92400e;letter-spacing:2px;margin-bottom:5px">INTENSIFICATION · WKS 10–12</div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.8">
+        <strong style="color:var(--text);display:block">Wk 10 — Rest-Pause</strong>Max / 15 breaths / max / 15 breaths / max.<br><br>
+        <strong style="color:var(--text);display:block">Wk 11 — 5-Sec Negatives</strong>5-sec lower + stretch hold on final rep.<br><br>
+        <strong style="color:var(--text);display:block">Wk 12 — Giant Sets</strong>3–4 isolations back-to-back, zero rest.
+      </div>
+    </div>
+    <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:5px;padding:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#dc2626;letter-spacing:2px;margin-bottom:5px">PEAK · WKS 13–15</div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.8">
+        <strong style="color:var(--text);display:block">Wk 13 — Cluster Sets</strong>1 rep → rack → 10 sec → ×5. 85–90% load.<br><br>
+        <strong style="color:var(--text);display:block">Wk 14 — Mechanical Drop Sets</strong>Fail → change angle → continue, same weight.<br><br>
+        <strong style="color:var(--text);display:block">Wk 15 — Max Effort + Pause</strong>2-sec pause every compound. PR week.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SESSIONS -->
+<div id="ss" class="page">
+  <div class="stag">Sessions · Weeks 7–15</div>
+  <div class="wk-tabs">
+    <button class="wt f active" onclick="sw('w7',this)">Wk 7 · Eccentrics</button>
+    <button class="wt f" onclick="sw('w8',this)">Wk 8 · Pre-Exhaust</button>
+    <button class="wt f" onclick="sw('w9',this)">Wk 9 · Drop Sets</button>
+    <button class="wt i" onclick="sw('w10',this)">Wk 10 · Rest-Pause</button>
+    <button class="wt i" onclick="sw('w11',this)">Wk 11 · 5-Sec Neg</button>
+    <button class="wt i" onclick="sw('w12',this)">Wk 12 · Giant Sets</button>
+    <button class="wt p" onclick="sw('w13',this)">Wk 13 · Clusters</button>
+    <button class="wt p" onclick="sw('w14',this)">Wk 14 · Mech Drop</button>
+    <button class="wt p" onclick="sw('w15',this)">Wk 15 · Max Effort</button>
+  </div>
+
+<!-- WK 7 -->
+<div class="wc active" id="w7">
+  <div class="tbanner f">
+    <div class="tw f">Week 7 · Foundation</div>
+    <div class="tn">Controlled Eccentrics</div>
+    <div class="ts">Thibaudeau / General Hypertrophy Science</div>
+    <div class="td"><strong>Rule:</strong> 3-second lowering on every rep, every set, every exercise. Explode up, control down. These are your baseline loads — what you establish here is the reference for all future weeks.</div>
+  </div>
+  <div class="wcard"><div class="wh"><span class="wb ch">MON · CHEST</span><span class="wt2">3-Sec Eccentric + Iron Cross</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — 3-Cluster Ladder</div><div class="tip">2-3-5 ladder, 2 clusters = 20 reps. 3-sec lower each rep.</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr class="cr"><td><div class="en">Cable Fly (Low-to-High)</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">DB Flat Press</div></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">Pec Deck Machine</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">THE IRON CROSS</div><div class="tip">DB Incline→Flat→Fly→Pullover. No put-down. 3-sec ecc every rep. 60 sec between rounds.</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="DB weight"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb bk">TUE · IRON BACK</span><span class="wt2">3-Sec Eccentric</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Barbell Bent-Over Row — 3-Cluster Ladder</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">Chest-Supported DB Row</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Seated Cable Row (wide grip)</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Face Pulls (rope)</div></td><td><span class="sn">4</span></td><td><span class="rn">20</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">EZ Bar Curl — 3-Cluster Ladder</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">Incline DB Curl</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb lg">WED · LEGS</span><span class="wt2">3-Sec Eccentric + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Back Squat</div></td><td><span class="sn">4</span></td><td><span class="rn">6</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Romanian Deadlift</div></td><td><span class="sn">4</span></td><td><span class="rn">8</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Leg Extension (1-sec pause at top)</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Seated Leg Curl</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Standing Calf Raise (3-sec pause at bottom)</div></td><td><span class="sn">5</span></td><td><span class="rn">15</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Seated Calf Raise</div></td><td><span class="sn">3</span></td><td><span class="rn">20</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb sh">THU · SHOULDERS + ARMS</span><span class="wt2">Chest Opener First</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — Chest Opener</div><span class="tp ct">CHEST TOUCH</span></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Seated Barbell OHP — 3-Cluster Ladder</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">Cable Lateral Raise 1-arm (pouring motion)</div></td><td><span class="sn">5</span></td><td><span class="rn">15 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Arnold Press</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Rear Delt Fly Machine</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Overhead DB Tricep Extension</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Hammer Curl (alternating)</div></td><td><span class="sn">3</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Barbell Shrugs (2-sec hold at top)</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb fg">FRI · FORGE</span><span class="wt2">Back Width + Forearms + Complex + Squat + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Weighted Pull-Up (dead hang, 3-sec negative)</div></td><td><span class="sn">4</span></td><td><span class="rn">6</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Wide-Grip Lat Pulldown</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Meadows Row (landmine)</div></td><td><span class="sn">4</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Reverse Curl</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Farmer's Carry</div></td><td><span class="sn">2</span></td><td><span class="rn">40m</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">MMS Complex Finisher</div><span class="tp cx">Row→Cln→FSq→Mil→BSq→GM</span></td><td><span class="sn">3 rounds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">High-Rep Back Squat</div></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+</div><!-- end w7 -->
+
+<!-- WK 8 -->
+<div class="wc" id="w8">
+  <div class="tbanner f">
+    <div class="tw f">Week 8 · Foundation</div>
+    <div class="tn">Pre-Exhaust Supersets</div>
+    <div class="ts">Poliquin / Arnold-era bodybuilding</div>
+    <div class="td"><strong>Rule:</strong> Isolation immediately before its compound with zero rest between them (A1→A2). Rest 90 sec after both. The isolation pre-fatigues the target muscle so it does all the work in the compound. For chest: Cable Fly → immediately DB Incline.</div>
+  </div>
+  <div class="wcard"><div class="wh"><span class="wb ch">MON · CHEST</span><span class="wt2">Pre-Exhaust + Iron Cross</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">A1: Cable Fly → A2: DB Incline Press</div><div class="tip">Zero rest A1→A2. Rest 90 sec after both.</div></td><td><span class="sn">4 supersets</span></td><td><span class="rn">A1:12 / A2:8</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="A1wt / A2wt"></td></tr>
+    <tr class="cr"><td><div class="en">B1: Pec Deck → B2: DB Flat Press</div><div class="tip">Zero rest B1→B2. Rest 90 sec after both.</div></td><td><span class="sn">3 supersets</span></td><td><span class="rn">B1:12 / B2:10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="B1wt / B2wt"></td></tr>
+    <tr class="cr"><td><div class="en">Cable Fly High-to-Low (straight set)</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">THE IRON CROSS</div><div class="tip">DB Incline→Flat→Fly→Pullover. No put-down. 3-sec ecc. 60 sec between rounds.</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="DB weight"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb bk">TUE · IRON BACK</span><span class="wt2">Pre-Exhaust</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">A1: Straight-Arm Pulldown → A2: Barbell Row</div></td><td><span class="sn">4 supersets</span></td><td><span class="rn">A1:12 / A2:6</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="A1wt / A2wt"></td></tr>
+    <tr><td><div class="en">Chest-Supported DB Row</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Face Pulls</div></td><td><span class="sn">4</span></td><td><span class="rn">20</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">B1: Cable Curl → B2: EZ Bar Curl</div></td><td><span class="sn">3 supersets</span></td><td><span class="rn">B1:12 / B2:2-3-5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="B1wt / B2wt"></td></tr>
+    <tr><td><div class="en">Incline DB Curl</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb lg">WED · LEGS</span><span class="wt2">Pre-Exhaust + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">A1: Leg Extension → A2: Back Squat</div></td><td><span class="sn">4 supersets</span></td><td><span class="rn">A1:15 / A2:6</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="A1wt / A2wt"></td></tr>
+    <tr><td><div class="en">B1: Leg Curl → B2: RDL</div></td><td><span class="sn">3 supersets</span></td><td><span class="rn">B1:15 / B2:8</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="B1wt / B2wt"></td></tr>
+    <tr><td><div class="en">Standing Calf Raise</div></td><td><span class="sn">5</span></td><td><span class="rn">15</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Seated Calf Raise</div></td><td><span class="sn">3</span></td><td><span class="rn">20</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb sh">THU · SHOULDERS + ARMS</span><span class="wt2">Chest Opener → Pre-Exhaust</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — Chest Opener</div><span class="tp ct">CHEST TOUCH</span></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">A1: Cable Lateral Raise → A2: Seated OHP</div></td><td><span class="sn">4 supersets</span></td><td><span class="rn">A1:15 / A2:2-3-5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="A1wt / A2wt"></td></tr>
+    <tr><td><div class="en">Arnold Press</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Rear Delt Fly Machine</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">B1: Rope Pushdown → B2: OH DB Extension</div></td><td><span class="sn">3 supersets</span></td><td><span class="rn">B1:15 / B2:10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="B1wt / B2wt"></td></tr>
+    <tr><td><div class="en">Hammer Curl</div></td><td><span class="sn">3</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Barbell Shrugs</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb fg">FRI · FORGE</span><span class="wt2">Pre-Exhaust + Complex + Squat + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">A1: Straight-Arm Pulldown → A2: Weighted Pull-Up</div></td><td><span class="sn">4 supersets</span></td><td><span class="rn">A1:12 / A2:6</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="A1wt / A2wt"></td></tr>
+    <tr><td><div class="en">Meadows Row</div></td><td><span class="sn">4</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Reverse Curl + Farmer's Carry</div></td><td><span class="sn">3+2</span></td><td><span class="rn">12 / 40m</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">MMS Complex Finisher</div><span class="tp cx">COMPLEX</span></td><td><span class="sn">3 rounds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">High-Rep Back Squat</div></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+</div><!-- end w8 -->
+
+<!-- WK 9 -->
+<div class="wc" id="w9">
+  <div class="tbanner f">
+    <div class="tw f">Week 9 · Foundation</div>
+    <div class="tn">Drop Sets</div>
+    <div class="ts">Joe Weider — Classic Intensity Principle</div>
+    <div class="td"><strong>Rule:</strong> All working sets identical to Week 7. On the <strong>final set only</strong> of each exercise, immediately drop weight 25–30% without resting and do max reps. Log as main weight then drop (e.g. 60×8 [45×11]). Iron Cross unchanged.</div>
+  </div>
+  <div class="wcard"><div class="wh"><span class="wb ch">MON · CHEST</span><span class="wt2">Drop Final Set Each Exercise</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log (main + drop)</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — 3-Cluster + Drop after Final</div></td><td><span class="sn">3 clusters+drop</span></td><td><span class="rn">2–3–5+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt / dropwt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">Cable Fly — drop on final set</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">12+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr class="cr"><td><div class="en">DB Flat Press — drop on final set</div></td><td><span class="sn">3+drop</span></td><td><span class="rn">10+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr class="cr"><td><div class="en">Pec Deck — drop on final set</div></td><td><span class="sn">3+drop</span></td><td><span class="rn">12+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr class="cr"><td><div class="en">THE IRON CROSS — unchanged</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="DB weight"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb bk">TUE · IRON BACK</span><span class="wt2">Drop Final Set</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Barbell Row — 3-Cluster + Drop</div></td><td><span class="sn">3 clusters+drop</span></td><td><span class="rn">2–3–5+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt+drop"></td></tr>
+    <tr><td><div class="en">Chest-Supported Row — drop on final</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">10+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Cable Row — drop on final</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">12+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Face Pulls — no drop</div></td><td><span class="sn">4</span></td><td><span class="rn">20</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">EZ Bar Curl — 3-Cluster + Drop</div></td><td><span class="sn">3 clusters+drop</span></td><td><span class="rn">2–3–5+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt+drop"></td></tr>
+    <tr><td><div class="en">Incline DB Curl — drop on final</div></td><td><span class="sn">3+drop</span></td><td><span class="rn">12+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb lg">WED · LEGS</span><span class="wt2">Drop Final Set + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Back Squat — drop on final</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">6+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">RDL — drop on final</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">8+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Leg Extension — drop on final</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">15+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Leg Curl — drop on final</div></td><td><span class="sn">3+drop</span></td><td><span class="rn">12+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Calf Raises — no drop</div></td><td><span class="sn">5+3</span></td><td><span class="rn">15/20</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb sh">THU · SHOULDERS + ARMS</span><span class="wt2">Chest Opener → Drop Final Set</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — Chest Opener</div><span class="tp ct">CHEST TOUCH</span></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">OHP — 3-Cluster + Drop</div></td><td><span class="sn">3 clusters+drop</span></td><td><span class="rn">2–3–5+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt+drop"></td></tr>
+    <tr><td><div class="en">Cable Lateral Raise — drop on final</div></td><td><span class="sn">5+drop</span></td><td><span class="rn">15+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Arnold Press — drop on final</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">10+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Rear Delt Fly — no drop</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">OH Tricep Extension — drop on final</div></td><td><span class="sn">3+drop</span></td><td><span class="rn">12+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Hammer Curl — drop on final</div></td><td><span class="sn">3+drop</span></td><td><span class="rn">12ea+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Barbell Shrugs — drop on final</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">12+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb fg">FRI · FORGE</span><span class="wt2">Drop Final Set + Complex + Squat + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Weighted Pull-Up — drop final (strip to BW)</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">6+max BW</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+BW drop"></td></tr>
+    <tr><td><div class="en">Lat Pulldown — drop on final</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">10+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Meadows Row — drop on final</div></td><td><span class="sn">4+drop</span></td><td><span class="rn">8ea+max</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="wt×reps+drop"></td></tr>
+    <tr><td><div class="en">Reverse Curl + Farmer's Carry</div></td><td><span class="sn">3+2</span></td><td><span class="rn">12/40m</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">MMS Complex Finisher</div><span class="tp cx">COMPLEX</span></td><td><span class="sn">3 rounds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">High-Rep Back Squat</div></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+</div><!-- end w9 -->
+
+<!-- WK 10 -->
+<div class="wc" id="w10">
+  <div class="tbanner i">
+    <div class="tw i">Week 10 · Intensification</div>
+    <div class="tn">Rest-Pause Sets</div>
+    <div class="ts">Dante Trudel — DC Training (Doggcrapp)</div>
+    <div class="td"><strong>Rule:</strong> Max reps → rack → 15 deep breaths (~15 sec) → max reps → rack → 15 breaths → max reps. That is one set. Reduce total sets by 1 per exercise. Log total reps across all three mini-sets (e.g. 9+5+3=17). Face pulls and rear delt fly stay straight sets. Iron Cross unchanged.</div>
+  </div>
+  <div class="wcard"><div class="wh"><span class="wb ch">MON · CHEST</span><span class="wt2">Rest-Pause + Iron Cross</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log (e.g. 9+5+3=17)</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="9+5+3=17"></td></tr>
+    <tr class="cr"><td><div class="en">Cable Fly — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr class="cr"><td><div class="en">DB Flat Press — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr class="cr"><td><div class="en">Pec Deck — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr class="cr"><td><div class="en">THE IRON CROSS — unchanged</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="DB weight"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb bk">TUE · IRON BACK</span><span class="wt2">Rest-Pause</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Barbell Row — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Chest-Supported Row — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Cable Row — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Face Pulls — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">20</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">EZ Bar Curl — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Incline DB Curl — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb lg">WED · LEGS</span><span class="wt2">Rest-Pause + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Back Squat — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">RDL — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Leg Extension — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Leg Curl — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Calf Raises — straight sets</div></td><td><span class="sn">5+3</span></td><td><span class="rn">15/20</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb sh">THU · SHOULDERS + ARMS</span><span class="wt2">Chest Opener Straight → Rest-Pause Everything</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — Chest Opener (straight sets)</div><span class="tp ct">CHEST TOUCH</span></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">OHP — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Cable Lateral Raise — Rest-Pause</div></td><td><span class="sn">4</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Arnold Press — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Rear Delt Fly — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">OH Tricep Extension — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Hammer Curl — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Barbell Shrugs — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb fg">FRI · FORGE</span><span class="wt2">Rest-Pause + Complex + Squat + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Weighted Pull-Up — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Lat Pulldown — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Meadows Row — Rest-Pause</div></td><td><span class="sn">3</span></td><td><span class="rn">Rest-Pause</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="total reps"></td></tr>
+    <tr><td><div class="en">Reverse Curl + Farmer's Carry</div></td><td><span class="sn">3+2</span></td><td><span class="rn">12/40m</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">MMS Complex Finisher</div><span class="tp cx">COMPLEX</span></td><td><span class="sn">3 rounds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">High-Rep Back Squat</div></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+</div><!-- end w10 -->
+
+<!-- WK 11 -->
+<div class="wc" id="w11">
+  <div class="tbanner i">
+    <div class="tw i">Week 11 · Intensification</div>
+    <div class="tn">5-Second Negatives + Loaded Stretch Hold</div>
+    <div class="ts">Christian Thibaudeau — mTOR Activation Protocol</div>
+    <div class="td"><strong>Rule:</strong> Lower the weight over exactly 5 seconds on every rep. On the final rep of each set, hold the fully stretched position (bottom of press, bottom of fly, bottom of squat) for 10–15 seconds before completing the rep. <strong>Use 10–15% less weight than Week 7</strong> to hold the count cleanly.</div>
+  </div>
+  <div class="wcard"><div class="wh"><span class="wb ch">MON · CHEST</span><span class="wt2">5-Sec Negative + Stretch Hold on Final Rep</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log (wt −10–15%)</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — 5-sec down, hold bottom final rep</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weight (−10%)"></td></tr>
+    <tr class="cr"><td><div class="en">Cable Fly — 5-sec return, hold stretch final rep</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">DB Flat Press — 5-sec down, hold bottom final rep</div></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">Pec Deck — 5-sec return, hold stretch final rep</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">THE IRON CROSS — 5-sec ecc every rep all 4 movements</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="DB wt (−10%)"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb bk">TUE · IRON BACK</span><span class="wt2">5-Sec Negatives</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Barbell Row — 5-sec lower, hold stretch final rep</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weight (−10%)"></td></tr>
+    <tr><td><div class="en">Chest-Supported Row — 5-sec lower</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Cable Row — 5-sec lower</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Face Pulls — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">20</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">EZ Bar Curl — 5-sec lower, hold stretch final</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weight (−10%)"></td></tr>
+    <tr><td><div class="en">Incline DB Curl — 5-sec lower</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb lg">WED · LEGS</span><span class="wt2">5-Sec Negatives + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Back Squat — 5-sec descent, hold bottom final rep</div></td><td><span class="sn">4</span></td><td><span class="rn">6</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps (−10%)"></td></tr>
+    <tr><td><div class="en">RDL — 5-sec lower, hold stretch final rep</div></td><td><span class="sn">4</span></td><td><span class="rn">8</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Leg Extension — 5-sec lower</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Leg Curl — 5-sec lower</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Calf Raises</div></td><td><span class="sn">5+3</span></td><td><span class="rn">15/20</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb sh">THU · SHOULDERS + ARMS</span><span class="wt2">Chest Opener → 5-Sec Negatives</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — Chest Opener, 5-sec down</div><span class="tp ct">CHEST TOUCH</span></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">OHP — 5-sec lower, hold at chin final rep</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weight (−10%)"></td></tr>
+    <tr><td><div class="en">Cable Lateral Raise — 5-sec lower</div></td><td><span class="sn">5</span></td><td><span class="rn">15 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Arnold Press — 5-sec lower</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Rear Delt Fly — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">OH Tricep Extension — 5-sec lower, hold stretch final</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Hammer Curl — 5-sec lower</div></td><td><span class="sn">3</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Barbell Shrugs</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb fg">FRI · FORGE</span><span class="wt2">5-Sec Negatives + Complex + Squat + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Weighted Pull-Up — 5-sec negative, hold hang final</div></td><td><span class="sn">4</span></td><td><span class="rn">6</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps (−10%)"></td></tr>
+    <tr><td><div class="en">Lat Pulldown — 5-sec lower</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Meadows Row — 5-sec lower</div></td><td><span class="sn">4</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Reverse Curl + Farmer's Carry</div></td><td><span class="sn">3+2</span></td><td><span class="rn">12/40m</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">MMS Complex Finisher</div><span class="tp cx">COMPLEX</span></td><td><span class="sn">3 rounds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">High-Rep Back Squat</div></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+</div><!-- end w11 -->
+
+<!-- WK 12 -->
+<div class="wc" id="w12">
+  <div class="tbanner i">
+    <div class="tw i">Week 12 · Intensification</div>
+    <div class="tn">Giant Sets on Isolation + Compound Deload</div>
+    <div class="ts">Weider Giant Set Principle / Active Recovery Periodization</div>
+    <div class="td"><strong>Rule:</strong> 3–4 isolation exercises for the same muscle, back-to-back, zero rest between each. Rest 90 sec after completing the full giant set. Creates massive metabolic stress and pump. <strong>Compounds drop to 65% of normal working weight</strong> — body is recovering from two hard intensity weeks while giant sets maintain stimulus.</div>
+  </div>
+  <div class="wcard"><div class="wh"><span class="wb ch">MON · CHEST</span><span class="wt2">Chest Giant Set + Light Compounds + Iron Cross</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press (65% of normal)</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight (65%)"></td></tr>
+    <tr class="cr"><td><div class="en">CHEST GIANT SET: A1 Cable Fly → A2 Pec Deck → A3 DB Fly</div><div class="tip">Zero rest between A1, A2, A3. Rest 90 sec after all three.</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="A1/A2/A3 weights"></td></tr>
+    <tr class="cr"><td><div class="en">THE IRON CROSS — unchanged</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="DB weight"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb bk">TUE · IRON BACK</span><span class="wt2">Back Giant Set + Light Compound Row</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Barbell Row (65%)</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight (65%)"></td></tr>
+    <tr><td><div class="en">BACK GIANT SET: A1 Straight-Arm Pulldown → A2 Face Pulls → A3 Cable Row</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="A1/A2/A3 weights"></td></tr>
+    <tr><td><div class="en">BICEP GIANT SET: B1 EZ Curl → B2 Cable Curl → B3 Hammer Curl</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="B1/B2/B3 weights"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb lg">WED · LEGS</span><span class="wt2">Light Compounds + Leg Giant Set + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Back Squat (65%)</div></td><td><span class="sn">4</span></td><td><span class="rn">6</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight (65%)"></td></tr>
+    <tr><td><div class="en">RDL (65%)</div></td><td><span class="sn">4</span></td><td><span class="rn">8</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight (65%)"></td></tr>
+    <tr><td><div class="en">LEG GIANT SET: A1 Leg Extension → A2 Leg Curl → A3 Calf Raise</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">15 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="A1/A2/A3 weights"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb sh">THU · SHOULDERS + ARMS</span><span class="wt2">Chest Opener + Shoulder Giant Set + Light OHP</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — Chest Opener (65%)</div><span class="tp ct">CHEST TOUCH</span></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt (65%)"></td></tr>
+    <tr><td><div class="en">OHP (65%)</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight (65%)"></td></tr>
+    <tr><td><div class="en">SHOULDER GIANT SET: A1 Lateral Raise → A2 Rear Delt Fly → A3 Arnold Press</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="A1/A2/A3 weights"></td></tr>
+    <tr><td><div class="en">ARM GIANT SET: B1 OH Extension → B2 Pushdown → B3 Hammer Curl → B4 EZ Curl</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weights"></td></tr>
+    <tr><td><div class="en">Barbell Shrugs</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb fg">FRI · FORGE</span><span class="wt2">Light Pulls + Forearm Giant Set + Complex + Squat + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Weighted Pull-Up (65%)</div></td><td><span class="sn">4</span></td><td><span class="rn">6</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt (65%)"></td></tr>
+    <tr><td><div class="en">Lat Pulldown (65%)</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt (65%)"></td></tr>
+    <tr><td><div class="en">FOREARM GIANT SET: A1 Reverse Curl → A2 Wrist Curl → A3 Farmer's Carry</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">12/15/40m</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="weights"></td></tr>
+    <tr><td><div class="en">MMS Complex Finisher</div><span class="tp cx">COMPLEX</span></td><td><span class="sn">3 rounds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">High-Rep Back Squat</div></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+</div><!-- end w12 -->
+
+<!-- WK 13 -->
+<div class="wc" id="w13">
+  <div class="tbanner p">
+    <div class="tw p">Week 13 · Peak</div>
+    <div class="tn">Cluster Sets</div>
+    <div class="ts">Charles Poliquin — Cluster Training</div>
+    <div class="td"><strong>What a cluster set is:</strong> 1 rep → rack the weight → rest exactly 10 seconds → 1 rep → rack → 10 sec → repeat until 5 total singles = 1 cluster set. The 10-sec rest restores enough ATP to use 85–90% of your max on every single. Rest 2–3 min between cluster sets. <strong>Isolation exercises stay as straight sets</strong> — clusters on compounds only.</div>
+  </div>
+  <div class="wcard"><div class="wh"><span class="wb ch">MON · CHEST</span><span class="wt2">Cluster Sets — Heaviest Chest of Program</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — CLUSTER SETS</div><div class="tip">1 rep → rack → 10 sec → ×5 = 1 cluster. 85–90% of max. Rest 2–3 min between clusters.</div></td><td><span class="sn">5 clusters</span></td><td><span class="rn">5 singles</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (85–90%)"></td></tr>
+    <tr class="cr"><td><div class="en">Cable Fly — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">DB Flat Press — CLUSTER SETS</div></td><td><span class="sn">4 clusters</span></td><td><span class="rn">5 singles</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (85–90%)"></td></tr>
+    <tr class="cr"><td><div class="en">Pec Deck — straight sets</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">THE IRON CROSS — unchanged</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="DB weight"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb bk">TUE · IRON BACK</span><span class="wt2">Cluster Sets on Compounds</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Barbell Row — CLUSTER SETS</div></td><td><span class="sn">5 clusters</span></td><td><span class="rn">5 singles</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (85–90%)"></td></tr>
+    <tr><td><div class="en">Chest-Supported Row — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Face Pulls — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">20</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">EZ Bar Curl — CLUSTER SETS</div></td><td><span class="sn">4 clusters</span></td><td><span class="rn">5 singles</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (85–90%)"></td></tr>
+    <tr><td><div class="en">Incline DB Curl — straight sets</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb lg">WED · LEGS</span><span class="wt2">Cluster Sets on Compounds + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Back Squat — CLUSTER SETS</div></td><td><span class="sn">5 clusters</span></td><td><span class="rn">5 singles</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (85–90%)"></td></tr>
+    <tr><td><div class="en">RDL — CLUSTER SETS</div></td><td><span class="sn">4 clusters</span></td><td><span class="rn">5 singles</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (85–90%)"></td></tr>
+    <tr><td><div class="en">Leg Extension — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Leg Curl — straight sets</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Calf Raises</div></td><td><span class="sn">5+3</span></td><td><span class="rn">15/20</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb sh">THU · SHOULDERS + ARMS</span><span class="wt2">Chest Opener + Cluster Compounds</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — Chest Opener, straight sets</div><span class="tp ct">CHEST TOUCH</span></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">OHP — CLUSTER SETS</div></td><td><span class="sn">5 clusters</span></td><td><span class="rn">5 singles</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (85–90%)"></td></tr>
+    <tr><td><div class="en">Cable Lateral Raise — straight sets</div></td><td><span class="sn">5</span></td><td><span class="rn">15 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Arnold Press — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Rear Delt Fly — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">OH Tricep Extension — CLUSTER SETS</div></td><td><span class="sn">4 clusters</span></td><td><span class="rn">5 singles</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (85–90%)"></td></tr>
+    <tr><td><div class="en">Hammer Curl — straight sets</div></td><td><span class="sn">3</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Barbell Shrugs</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb fg">FRI · FORGE</span><span class="wt2">Cluster Pulls + Complex + Squat + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">Weighted Pull-Up — CLUSTER SETS</div></td><td><span class="sn">5 clusters</span></td><td><span class="rn">5 singles</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (85–90%)"></td></tr>
+    <tr><td><div class="en">Lat Pulldown — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Meadows Row — CLUSTER SETS</div></td><td><span class="sn">4 clusters</span></td><td><span class="rn">5 singles ea</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (85–90%)"></td></tr>
+    <tr><td><div class="en">Reverse Curl + Farmer's Carry</div></td><td><span class="sn">3+2</span></td><td><span class="rn">12/40m</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">MMS Complex Finisher</div><span class="tp cx">COMPLEX</span></td><td><span class="sn">3 rounds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">High-Rep Back Squat</div></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+</div><!-- end w13 -->
+
+<!-- WK 14 -->
+<div class="wc" id="w14">
+  <div class="tbanner p">
+    <div class="tw p">Week 14 · Peak</div>
+    <div class="tn">Mechanical Drop Sets</div>
+    <div class="ts">Mike Israetel / Renaissance Periodization</div>
+    <div class="td"><strong>Rule:</strong> Instead of dropping weight when you fail, you change to a mechanically easier angle and keep going at the <strong>same weight</strong>. For chest: fail on DB Incline → immediately to DB Flat → continue to failure → immediately to DB Fly → continue to failure. That is one set. Same weight throughout each mechanical drop.</div>
+  </div>
+  <div class="wcard"><div class="wh"><span class="wb ch">MON · CHEST</span><span class="wt2">Mech Drop Sets: Incline → Flat → Fly</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">CHEST MECH DROP: DB Incline → DB Flat → DB Fly</div><div class="tip">Fail at incline. Same weight, immediately to flat. Fail. Same weight, immediately to fly. Fail = 1 set. Rest 2 min.</div></td><td><span class="sn">4</span></td><td><span class="rn">Fail each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight (same throughout)"></td></tr>
+    <tr class="cr"><td><div class="en">CABLE MECH DROP: High Fly → Mid Fly → Low-to-High</div></td><td><span class="sn">3</span></td><td><span class="rn">Fail each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr class="cr"><td><div class="en">Pec Deck — straight sets</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">THE IRON CROSS — unchanged</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="DB weight"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb bk">TUE · IRON BACK</span><span class="wt2">Mech Drop Sets</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">PULLDOWN MECH DROP: Wide-Grip → Close-Grip → Straight-Arm</div></td><td><span class="sn">4</span></td><td><span class="rn">Fail each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">ROW MECH DROP: Barbell Row → Chest-Supported → Cable Row</div></td><td><span class="sn">3</span></td><td><span class="rn">Fail each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weights"></td></tr>
+    <tr><td><div class="en">Face Pulls — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">20</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">CURL MECH DROP: EZ Bar → Incline DB → Cable Curl</div></td><td><span class="sn">3</span></td><td><span class="rn">Fail each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weights"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb lg">WED · LEGS</span><span class="wt2">Mech Drop Sets + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">LEG MECH DROP: Back Squat → Hack Squat → Leg Press</div></td><td><span class="sn">4</span></td><td><span class="rn">Fail each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">HAMSTRING MECH DROP: RDL → Lying Leg Curl → Seated Leg Curl</div></td><td><span class="sn">3</span></td><td><span class="rn">Fail each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weights"></td></tr>
+    <tr><td><div class="en">Calf Raises</div></td><td><span class="sn">5+3</span></td><td><span class="rn">15/20</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb sh">THU · SHOULDERS + ARMS</span><span class="wt2">Chest Opener + Mech Drop Sets</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — Chest Opener</div><span class="tp ct">CHEST TOUCH</span></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">SHOULDER MECH DROP: OHP → Arnold Press → Lateral Raise</div></td><td><span class="sn">4</span></td><td><span class="rn">Fail each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">Rear Delt Fly — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">TRICEP MECH DROP: OH Extension → Pushdown → Dips</div></td><td><span class="sn">3</span></td><td><span class="rn">Fail each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="weights"></td></tr>
+    <tr><td><div class="en">Hammer Curl — straight sets</div></td><td><span class="sn">3</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Barbell Shrugs</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb fg">FRI · FORGE</span><span class="wt2">Mech Drop Pulls + Complex + Squat + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>Log</th></tr></thead><tbody>
+    <tr><td><div class="en">PULL-UP MECH DROP: Weighted → Bodyweight → Band-Assisted</div></td><td><span class="sn">4</span></td><td><span class="rn">Fail each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="loaded weight"></td></tr>
+    <tr><td><div class="en">Meadows Row — straight sets</div></td><td><span class="sn">4</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Reverse Curl + Farmer's Carry</div></td><td><span class="sn">3+2</span></td><td><span class="rn">12/40m</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">MMS Complex Finisher</div><span class="tp cx">COMPLEX</span></td><td><span class="sn">3 rounds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="weight"></td></tr>
+    <tr><td><div class="en">High-Rep Back Squat</div></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+</div><!-- end w14 -->
+
+<!-- WK 15 -->
+<div class="wc" id="w15">
+  <div class="tbanner p">
+    <div class="tw p">Week 15 · Peak — FINAL WEEK</div>
+    <div class="tn">Max Effort + Paused Reps</div>
+    <div class="ts">Westside Barbell Max Effort Method</div>
+    <div class="td"><strong>Rule:</strong> 2-second pause at the bottom of every compound rep, eliminating the stretch reflex entirely — pure muscle from a dead stop. Combined with the heaviest loads of the program, this is your PR week. 15 weeks of volume and technique built the capacity — now express it. Beat every number from Weeks 7–14.</div>
+  </div>
+  <div class="wcard"><div class="wh"><span class="wb ch">MON · CHEST</span><span class="wt2">MAX EFFORT — Heaviest Chest of Program + Iron Cross</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>PR Weight</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — 2-sec pause at bottom</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR weight"></td></tr>
+    <tr class="cr"><td><div class="en">Cable Fly — heaviest of program</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">DB Flat Press — 2-sec pause, heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">8</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">Pec Deck — heaviest of program</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr class="cr"><td><div class="en">THE IRON CROSS — Final session. Give everything.</div></td><td><span class="sn">3 rounds</span></td><td><span class="rn">8 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR DB weight"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb bk">TUE · IRON BACK</span><span class="wt2">MAX EFFORT — Paused Rows + Heaviest Pulls</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>PR Weight</th></tr></thead><tbody>
+    <tr><td><div class="en">Barbell Row — 2-sec pause at chest, heaviest</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR weight"></td></tr>
+    <tr><td><div class="en">Chest-Supported Row — heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">8</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Cable Row — heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">10</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Face Pulls</div></td><td><span class="sn">4</span></td><td><span class="rn">20</span></td><td><span class="rpe r7">7</span></td><td><input type="text" placeholder="wt×reps"></td></tr>
+    <tr><td><div class="en">EZ Bar Curl — 2-sec pause at stretch, heaviest</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR weight"></td></tr>
+    <tr><td><div class="en">Incline DB Curl — heaviest</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb lg">WED · LEGS</span><span class="wt2">MAX EFFORT — Paused Squats + Abs</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>PR Weight</th></tr></thead><tbody>
+    <tr><td><div class="en">Back Squat — 2-sec pause at bottom, heaviest</div></td><td><span class="sn">5</span></td><td><span class="rn">5</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">RDL — 2-sec hold at stretch, heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">6</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Leg Extension — heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Leg Curl — heaviest</div></td><td><span class="sn">3</span></td><td><span class="rn">12</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Calf Raises — heaviest</div></td><td><span class="sn">5+3</span></td><td><span class="rn">15/20</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb sh">THU · SHOULDERS + ARMS</span><span class="wt2">Chest Opener + MAX EFFORT OHP</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>PR Weight</th></tr></thead><tbody>
+    <tr class="cr"><td><div class="en">DB Incline Press — Chest Opener, 2-sec pause</div><span class="tp ct">CHEST TOUCH</span></td><td><span class="sn">3</span></td><td><span class="rn">8</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">OHP — 2-sec pause at chin, heaviest</div></td><td><span class="sn">3 clusters</span></td><td><span class="rn">2–3–5</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR weight"></td></tr>
+    <tr><td><div class="en">Cable Lateral Raise — heaviest</div></td><td><span class="sn">5</span></td><td><span class="rn">15 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Arnold Press — heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">8</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Rear Delt Fly — heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">15</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">OH Tricep Extension — 2-sec pause, heaviest</div></td><td><span class="sn">3</span></td><td><span class="rn">10</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Hammer Curl — heaviest</div></td><td><span class="sn">3</span></td><td><span class="rn">12 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Barbell Shrugs — heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">12</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+  </tbody></table></div>
+  <div class="wcard"><div class="wh"><span class="wb fg">FRI · FORGE</span><span class="wt2">FINAL SESSION — MAX EFFORT Everything</span></div>
+  <table><thead><tr><th style="width:36%">Exercise</th><th>Sets</th><th>Reps</th><th>RPE</th><th>PR Weight</th></tr></thead><tbody>
+    <tr><td><div class="en">Weighted Pull-Up — 2-sec hang, heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">5</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Lat Pulldown — heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">8</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Meadows Row — heaviest</div></td><td><span class="sn">4</span></td><td><span class="rn">6 each</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Reverse Curl + Farmer's Carry — heaviest</div></td><td><span class="sn">3+2</span></td><td><span class="rn">12/50m</span></td><td><span class="rpe r9">9</span></td><td><input type="text" placeholder="PR weights"></td></tr>
+    <tr><td><div class="en">MMS Complex — heaviest of program</div><span class="tp cx">COMPLEX — FINAL</span></td><td><span class="sn">3 rounds</span></td><td><span class="rn">5 each</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="PR weight"></td></tr>
+    <tr><td><div class="en">High-Rep Back Squat — Final</div></td><td><span class="sn">2</span></td><td><span class="rn">30</span></td><td><span class="rpe r8">8</span></td><td><input type="text" placeholder="PR wt×reps"></td></tr>
+    <tr><td><div class="en">Ab Circuit — Final</div></td><td><span class="sn">1</span></td><td><span class="rn">~6:30</span></td><td><span class="rpe r8">8</span></td><td style="color:var(--muted);font-size:10px">See Abs tab</td></tr>
+  </tbody></table></div>
+</div><!-- end w15 -->
+</div><!-- end sessions page -->
+
+<!-- ABS -->
+<div id="ab" class="page">
+  <div class="stag">Ab Circuit · Mon / Wed / Fri · Block 2</div>
+  <div class="note">After lifting, before yoga. No rest between exercises. ~6 min 30 sec. Same circuit every abs day.</div>
+  <div class="ab-card">
+    <div class="ab-hdr"><span style="font-size:14px">🔥</span><span class="ab-t">Ab Circuit</span><span class="ab-d">~6:30 · M/W/F</span></div>
+    <div class="ab-row"><div class="ab-n">1</div><div class="ab-name">Heels to Heaven w/ Twist</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row"><div class="ab-n">2</div><div class="ab-name">Elbow to Opposite Knee Crunch</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row"><div class="ab-n">3</div><div class="ab-name">Flutter Kicks</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row"><div class="ab-n">4</div><div class="ab-name">Plank Spiderman (raised / forearm / push-up)</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row"><div class="ab-n">5</div><div class="ab-name">Classic Crunch</div><div class="ab-dur">90 sec</div></div>
+    <div class="ab-row"><div class="ab-n">6</div><div class="ab-name">Floor Wipers or Russian Twist</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row"><div class="ab-n">7</div><div class="ab-name">Full-Body Crunch (20 reps) or Top-Down Plank</div><div class="ab-dur">45 sec</div></div>
+    <div class="ab-row" style="background:#fff5f5"><div class="ab-n">★</div><div class="ab-name">Classic Crunch Squeeze + Hold — to failure</div><div class="ab-dur">Failure</div></div>
+  </div>
+</div>
+
+<!-- YOGA -->
+<div id="yg" class="page">
+  <div class="stag">Post-Session Yoga · Block 2 · ~20 Min</div>
+  <div class="note"><strong>Block 2 yoga shifts emphasis from MMS.</strong> Chest, pec, anterior shoulder, and heavy compound recovery are the priority. Thoracic work stays. Click any section to expand.</div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>💪</span><span class="acc-title">1 · Chest + Pec Recovery</span><span class="acc-time">5 min ★</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🚪</div><div><div class="an">Doorframe / Cable Post Chest Opener</div><div class="ad">Arm at 90° on a post or cable upright. Step through and lean forward gently. Targets the anterior delt and pec minor — the exact muscles the Iron Cross hammers. Both sides. Critical after Monday and Thursday sessions.</div></div><div class="at">60 sec/side</div></div>
+      <div class="arow"><div class="aico">🙆</div><div><div class="an">Supine Chest Stretch (foam roller)</div><div class="ad">Lie on foam roller lengthwise along spine. Arms open to sides, let gravity open the chest. Passive — just breathe and let the pecs elongate. Reverses the forward shoulder position heavy pressing builds over time.</div></div><div class="at">90 sec</div></div>
+      <div class="arow"><div class="aico">🤸</div><div><div class="an">Lying Pec Stretch</div><div class="ad">Face down, one arm out at 90°, gently roll toward that side until you feel stretch in pec. Hold, breathe. Switch sides. Targets the sternal head of the pec that DB flat and fly work hardest.</div></div><div class="at">45 sec/side</div></div>
+    </div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>🧱</span><span class="acc-title">2 · Thoracic Spine + Upper Back</span><span class="acc-time">5 min ★</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">📖</div><div><div class="an">Book Openers — Side-Lying Thoracic Rotation</div><div class="ad">Lie on side, knees at 90°. Sweep top arm overhead and behind, chest opens toward ceiling. Hold 2–3 sec. The single best active thoracic drill — especially important with 5-day heavy lifting compressing the thoracic.</div></div><div class="at">8/side</div></div>
+      <div class="arow"><div class="aico">🪵</div><div><div class="an">Foam Roller Thoracic Extension</div><div class="ad">Roller at mid-back. Arms crossed. Lean back and extend over roller. Move up/down 2–3 inches, pause on tight spots. Go deeper post-session than pre-session — muscles are warm now.</div></div><div class="at">90 sec</div></div>
+      <div class="arow"><div class="aico">🧵</div><div><div class="an">Thread the Needle</div><div class="ad">On all fours, thread one arm under body, let shoulder touch the ground. Releases rhomboids and mid-traps taxed by rows and pull-ups. Hold 30 sec each side.</div></div><div class="at">30 sec/side</div></div>
+    </div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>🏋️</span><span class="acc-title">3 · Shoulder + Rotator Cuff Recovery</span><span class="acc-time">4 min</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🦅</div><div><div class="an">Eagle Arms</div><div class="ad">Arms forward at shoulder height, wrap one arm under the other at elbows, lift. Posterior rotator cuff and upper back. Essential after OHP and lateral raise volume.</div></div><div class="at">45 sec/side</div></div>
+      <div class="arow"><div class="aico">🤗</div><div><div class="an">Cross-Body Shoulder Stretch</div><div class="ad">Pull one arm across chest with opposite hand at elbow. Rear delt and rotator cuff recovery. 30 sec each side.</div></div><div class="at">30 sec/side</div></div>
+      <div class="arow"><div class="aico">🌀</div><div><div class="an">Sleeper Stretch</div><div class="ad">Lie on side, bottom arm at 90°. Gently press the back of the wrist toward the floor with top hand — internal rotation stretch for the posterior capsule. High volume pressing tightens this over time. Don't force it.</div></div><div class="at">45 sec/side</div></div>
+    </div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>🦵</span><span class="acc-title">4 · Hips + Posterior Chain</span><span class="acc-time">4 min</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🕊️</div><div><div class="an">Pigeon Pose</div><div class="ad">Front shin roughly parallel to mat, rear leg extended. Hip rotator recovery after squat and RDL volume. 60 sec each side — non-negotiable on leg day.</div></div><div class="at">60 sec/side</div></div>
+      <div class="arow"><div class="aico">🐕</div><div><div class="an">Downward Dog into Forward Fold</div><div class="ad">45 sec downward dog (heels toward floor). Walk feet in, hang in forward fold 45 sec. Full hamstring and posterior chain release after heavy RDL and squat sessions.</div></div><div class="at">90 sec</div></div>
+    </div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>💪</span><span class="acc-title">5 · Bicep + Forearm Recovery</span><span class="acc-time">2 min</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🤲</div><div><div class="an">Bicep Stretch — Wall or Doorframe</div><div class="ad">Place palm flat on wall behind you (thumb down), gently rotate away. Stretches the long head of the bicep which curl clusters and rest-pause load heavily. 30 sec each side.</div></div><div class="at">30 sec/side</div></div>
+      <div class="arow"><div class="aico">🤚</div><div><div class="an">Wrist Flexor + Extensor Stretch</div><div class="ad">Arm extended palm up, pull fingers back 20 sec. Then palm down, pull fingers toward you 20 sec. Farmer's carries and reverse curls load the forearm extensors hard — this clears the pump.</div></div><div class="at">20 sec each × 2</div></div>
+    </div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-h" onclick="tg(this)"><span>🌙</span><span class="acc-title">6 · Spinal Decompression — Close Every Session</span><span class="acc-time">1 min</span><span style="color:var(--muted);font-size:10px">▼</span></div>
+    <div class="acc-b">
+      <div class="arow"><div class="aico">🧘</div><div><div class="an">Child's Pose</div><div class="ad">Kneel, fold forward, arms extended. Gravity decompresses the spine. 30 sec. Five heavy days compress the spine significantly — this reverses it before sauna.</div></div><div class="at">30 sec</div></div>
+      <div class="arow"><div class="aico">🙌</div><div><div class="an">Passive Bar Hang</div><div class="ad">Wide grip, feet lightly on floor. Spine and lats fully decompress. No bar? Child's pose another 30 sec. Then go to sauna.</div></div><div class="at">30 sec</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SAUNA -->
+<div id="sa" class="page">
+  <div class="stag">Sauna Protocol · After Every Session</div>
+  <div class="note gold"><strong>Why it works with this block:</strong> 5-day high-intensity training creates significant systemic inflammation. Post-workout sauna raises HSP (heat shock proteins) that accelerate muscle repair, reduces DOMS by up to 30%, and creates a synergistic HGH spike when combined with resistance training. 15 minutes is the sweet spot — meaningful benefit without cortisol cost.</div>
+  <div class="scards">
+    <div class="scard"><div class="scard-ico">💧</div><div class="scard-t">Hydrate First</div><div class="scard-d">Drink 16–20 oz before entering. Bring water in.</div></div>
+    <div class="scard"><div class="scard-ico">⏱️</div><div class="scard-t">Wait After Yoga</div><div class="scard-d">5–10 min after yoga. Heart rate below ~100 bpm before entering.</div></div>
+    <div class="scard"><div class="scard-ico">🌡️</div><div class="scard-t">170–185°F · 15 Min</div><div class="scard-d">Exit immediately if dizzy or nauseous. No forcing through discomfort.</div></div>
+    <div class="scard"><div class="scard-ico">🧠</div><div class="scard-t">No Phone</div><div class="scard-d">Slow breathing. Visualize next session. Cortisol drops in stillness.</div></div>
+  </div>
+  <div class="note"><strong>After sauna:</strong> Cool down 5 min. Drink 16–24 oz water. Eat within 60 min of finishing. Sleep 8+ hours — this is when the adaptation actually happens.</div>
+  <div class="note green"><strong>On high-volume days (Mon, Wed, Fri):</strong> Sauna is especially valuable. The combination of lifting + abs + yoga + sauna on these days fully closes the recovery loop before the next session.</div>
+</div>
+
+<!-- TRACKER -->
+<div id="tr" class="page">
+  <div class="stag">Block 2 Tracker</div>
+  <div class="note gold">Starting measurements carried from Block 1 end. Remeasure at Week 9 and Week 15. Log key lifts by week using Week 7 as your baseline.</div>
+  <div class="tg">
+    <div class="tb">
+      <div class="tb-t">📏 Measurements</div>
+      <div class="mr"><div></div><div class="ch">Blk1 End</div><div class="ch">Wk 9</div><div class="ch">Wk 12</div><div class="ch">Wk 15</div></div>
+      <div class="mr"><div class="ml">Arms (flexed)</div><input type="text" placeholder="from Blk1"><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Chest</div><input type="text" placeholder="from Blk1"><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Shoulders</div><input type="text" placeholder="from Blk1"><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Waist</div><input type="text" placeholder="from Blk1"><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Thighs</div><input type="text" placeholder="from Blk1"><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Calves</div><input type="text" placeholder="from Blk1"><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Forearms</div><input type="text" placeholder="from Blk1"><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Neck</div><input type="text" placeholder="from Blk1"><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+      <div class="mr"><div class="ml">Bodyweight</div><input type="text" placeholder="from Blk1"><input type="text" placeholder="——"><input type="text" placeholder="——"><input type="text" placeholder="——"></div>
+    </div>
+    <div class="tb">
+      <div class="tb-t">🏋️ Key Lift PRs</div>
+      <div class="lr"><div></div><div class="ch">W7</div><div class="ch">W8</div><div class="ch">W9</div><div class="ch">W10</div><div class="ch">W11</div><div class="ch">W12</div><div class="ch">W13</div><div class="ch">W14</div><div class="ch">W15</div></div>
+      <div class="lr"><div class="ml">DB Incline (ladder)</div><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div>
+      <div class="lr"><div class="ml">OHP (ladder)</div><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div>
+      <div class="lr"><div class="ml">Barbell Row</div><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div>
+      <div class="lr"><div class="ml">Wtd Pull-Up</div><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div>
+      <div class="lr"><div class="ml">Back Squat</div><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div>
+      <div class="lr"><div class="ml">Iron Cross (DB wt)</div><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div>
+      <div class="lr"><div class="ml">Complex weight</div><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"><input type="text"></div>
+    </div>
+  </div>
+  <div style="margin-top:9px"><div class="tb">
+    <div class="tb-t">📝 Notes by Phase</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:4px">
+      <div><div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:3px">Foundation · Wks 7–9</div><textarea placeholder="Eccentrics baseline, pre-exhaust feel, drop set fatigue"></textarea></div>
+      <div><div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:3px">Intensification · Wks 10–12</div><textarea placeholder="Rest-pause totals, 5-sec neg feel, giant set pump"></textarea></div>
+      <div><div style="font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:3px">Peak · Wks 13–15 · PRs</div><textarea placeholder="Cluster loads, mech drop angles, Wk 15 PRs hit"></textarea></div>
+    </div>
+  </div></div>
+</div>
+
+<button class="save-btn" onclick="saveAll()">💾 Save</button>
+<div class="save-ok" id="sok">✓ Saved</div>
+
+<script>
+function sp(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');window.scrollTo(0,0)}
+function sw(id,btn){document.querySelectorAll('.wc').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.wt').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active')}
+function tg(h){h.nextElementSibling.classList.toggle('open');h.classList.toggle('open')}
+function saveAll(){const d={};document.querySelectorAll('input,textarea').forEach((el,i)=>{if(el.value)d['f'+i]=el.value});try{localStorage.setItem('b2d',JSON.stringify(d))}catch(e){}const n=document.getElementById('sok');n.style.display='block';setTimeout(()=>n.style.display='none',2000)}
+function loadAll(){try{const r=localStorage.getItem('b2d');if(r){const d=JSON.parse(r);document.querySelectorAll('input,textarea').forEach((el,i)=>{if(d['f'+i])el.value=d['f'+i]})}}catch(e){}}
+loadAll();document.addEventListener('input',()=>{clearTimeout(window._t);window._t=setTimeout(saveAll,1500)});
+</script>
+</body>
+</html>
